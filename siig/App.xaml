@@ -1,0 +1,17 @@
+﻿<Application x:Class="siig.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:siig"
+             StartupUri="Views_ViewModels/MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="styles/brushes.xaml"/>
+                <ResourceDictionary Source="styles/labels.xaml"/>
+                <ResourceDictionary Source="styles/combobox.xaml"/>
+                <ResourceDictionary Source="styles/input.xaml"/>
+                <ResourceDictionary Source="styles/groupBox.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
