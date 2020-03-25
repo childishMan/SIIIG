@@ -168,9 +168,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Resource Include="icons\pic.png" />
+    <Resource Include="icons\icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="icons\next.png" />
