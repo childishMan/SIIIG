@@ -7,7 +7,7 @@
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="835">
+        Title="MainWindow" Height="450" Width="850" ResizeMode="CanMinimize">
 
     <Window.Resources>
         <Style x:Key="groupBox" TargetType="GroupBox">
@@ -24,15 +24,25 @@
             <RowDefinition Height="1.2*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="572.8"/>
-            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
         <!--image stack-->
-        <GroupBox Grid.Row="0" Grid.Column="1" Style="{DynamicResource groupBox }">
-            <StackPanel  Orientation="Horizontal" Margin="5,5,5,0" HorizontalAlignment="Center">
-                <Label Style="{StaticResource MainLabel}"  x:Name="partaAme" Content="{Binding NameOfView}" />
-            </StackPanel>
+        <GroupBox Grid.Row="0" Grid.Column="1" Style="{DynamicResource groupBox }" VerticalContentAlignment="Center">
+            <Grid Margin="0,0,0.4,-6.2" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image Grid.Column="0" Source="../icons/prev.png" VerticalAlignment="Center" MouseLeftButtonUp="PreviousMethod" />
+                <Label Grid.Column="1" Style="{StaticResource MainLabel}"  x:Name="partaAme"
+                       VerticalContentAlignment="Center"
+                       Content="{Binding NameOfView}" />
+                <Image Grid.Column="2" Source="../icons/next.png" MouseLeftButtonUp="NextMethod" />
+            </Grid>
         </GroupBox>
 
         <!--chart-->
@@ -40,11 +50,15 @@
             <lvc:CartesianChart Name="chart">
                 <!-- chart series -->
                 <lvc:CartesianChart.Series>
-                    <lvc:ScatterSeries Title="First Signal's Value" Values="{Binding FirstSignalChartValues}" Fill="Aqua" />
-                    <lvc:ScatterSeries Title="Second Signal's Value" Values="{Binding SecondSignalChartValues}" Fill="OrangeRed"/>
-                    <lvc:ScatterSeries Title="Result Signal's Value" Values="{Binding FinalSignalChartValues}" Fill="GreenYellow"/>
+                    <lvc:ScatterSeries Title="First Signal's Value"
+                                       Values="{Binding FirstSignalChartValues}" Fill="Aqua" />
+                    <lvc:ScatterSeries Title="Second Signal's Value"
+                                       Values="{Binding SecondSignalChartValues}" Fill="OrangeRed"/>
+                    <lvc:ScatterSeries Title="Result Signal's Value"
+                                       Values="{Binding FinalSignalChartValues}" Fill="GreenYellow"/>
 
-                    <lvc:LineSeries  Values="{Binding CorelationSignalChartValues}"/>
+                    <lvc:LineSeries Title="Corelation"
+                        Values="{Binding CorelationSignalChartValues}" DataLabels="False" Stroke="AliceBlue"/>
                 </lvc:CartesianChart.Series>
                 <!-- axes -->
                 <lvc:CartesianChart.AxisX>
@@ -66,10 +80,14 @@
 
         <ContentControl Grid.Row="1" Grid.Column="1" Background="AliceBlue" x:Name="SettingsBlock" />
         <!--button stack-->
-        <GroupBox Grid.Row="2" Grid.Column="1" Style="{StaticResource groupBox}" Margin="10.4,11.8,10,10">
-            <Button x:Name="proceed" BorderThickness="0" Background="Transparent" BorderBrush="#e3e9ef" HorizontalAlignment="Stretch" Margin="0,0,-0.2,-6.8" Click="Proceed_OnClick" >
-                <Label Style="{StaticResource MainLabel}" FontSize="10" Content="Proceed" />
-            </Button>
+        <GroupBox Grid.Row="2" Grid.Column="1" Style="{StaticResource groupBox}"
+                  MouseLeftButtonUp="Proceed_OnClick"
+                  MouseEnter="UIElement_OnMouseEnter" MouseLeave="UIElement_OnMouseLeave"
+                  BorderBrush="{StaticResource ItemsBorderBrush}">
+            <StackPanel Margin="5,5,5,0">
+                <Label Style="{StaticResource MainLabel}" FontSize="10" Content="Proceed"/>
+            </StackPanel>
+
         </GroupBox>
     </Grid>
 </Window>

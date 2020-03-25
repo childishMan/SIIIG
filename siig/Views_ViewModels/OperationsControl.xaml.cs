@@ -53,7 +53,7 @@ namespace siig.Views_ViewModels
             "Add two signals",
             "Multiply two signals"
         };
-        
+
 
         public OperationsControl()
         {
@@ -68,6 +68,33 @@ namespace siig.Views_ViewModels
         public void Proceed()
         {
             Reset();
+
+            if (FirstSignal.Count > 0 && IsAllChecked())
+            {
+                switch (CurrentMethod)
+                {
+                    case meths.Scale:
+                        ResultSignal = Operations.Scale(FirstSignal, Factor);
+                        break;
+                    case meths.AddTwoSignals:
+                        ResultSignal = Operations.AddTwoSignals(FirstSignal, SecondSignal);
+                        break;
+                    case meths.ExpandInTime:
+                        ResultSignal = Operations.ExpandInTime(FirstSignal, Factor, !isSqueeze);
+                        break;
+                    case meths.MultiplyTwoSignals:
+                        ResultSignal = Operations.Multiply(FirstSignal, SecondSignal);
+                        break;
+                    case meths.Reverse:
+                        ResultSignal = Operations.Reverse(FirstSignal);
+                        break;
+                    case meths.ShiftByTime:
+                        ResultSignal = Operations.ShiftByTime(FirstSignal, Factor);
+                        break;
+                    default:
+                        break;
+                }
+            }
 
             foreach (var item in FirstSignal)
             {
@@ -84,10 +111,14 @@ namespace siig.Views_ViewModels
 
             }
 
+            var str = "";
             foreach (var item in ResultSignal)
             {
                 FinalSignalChartValues.Add(new ObservablePoint(item.Key, item.Value));
+                str += $"{item.Key};{item.Value:f4} ";
             }
+
+            OutputSignal.Text = str;
         }
 
 
@@ -162,37 +193,24 @@ namespace siig.Views_ViewModels
         public bool IsAllChecked()
         {
             bool IsProceeded = true;
-            if (FirstSignal.Count > 0)
+            if (FirstSignal.Count >= 0)
             {
                 switch (CurrentMethod)
                 {
                     case meths.Scale:
-                        if (Factor > 0)
-                            ResultSignal = Operations.Scale(FirstSignal, Factor);
-                        else IsProceeded = false;
+                        if (Factor < 0) IsProceeded = false;
                         break;
                     case meths.AddTwoSignals:
-                        if (SecondSignal.Count > 0)
-                            ResultSignal = Operations.AddTwoSignals(FirstSignal, SecondSignal);
-                        else IsProceeded = false;
+                        if (SecondSignal.Count == 0) IsProceeded = false;
                         break;
                     case meths.ExpandInTime:
-                        if (Factor > 0)
-                            ResultSignal = Operations.ExpandInTime(FirstSignal, Factor, !isSqueeze);
-                        else IsProceeded = false;
+                        if (Factor <= 0) IsProceeded = false;
                         break;
                     case meths.MultiplyTwoSignals:
-                        if (SecondSignal.Count > 0)
-                            ResultSignal = Operations.Multiply(FirstSignal, SecondSignal);
-                        else IsProceeded = false;
-                        break;
-                    case meths.Reverse:
-                        ResultSignal = Operations.Reverse(FirstSignal);
+                        if (SecondSignal.Count == 0) IsProceeded = false;
                         break;
                     case meths.ShiftByTime:
-                        if (Factor != 0)
-                            ResultSignal = Operations.ShiftByTime(FirstSignal, Factor);
-                        else IsProceeded = false;
+                        if (Factor == 0) IsProceeded = false;
                         break;
                     default:
                         return false;
