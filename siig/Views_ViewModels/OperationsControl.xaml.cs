@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using LiveCharts;
@@ -17,7 +18,7 @@ namespace siig.Views_ViewModels
     /// </summary>
     public partial class OperationsControl : UserControl, IMethod
     {
-        public enum meths
+        public enum EMeths
         {
             Scale,
             Reverse,
@@ -32,7 +33,8 @@ namespace siig.Views_ViewModels
         private int Factor = 1;
 
 
-        private meths CurrentMethod = meths.Scale;
+        private string OuputString = "";
+        private EMeths CurrentMethod = EMeths.Scale;
 
         private Dictionary<int, double> FirstSignal = new Dictionary<int, double>();
         private Dictionary<int, double> SecondSignal = new Dictionary<int, double>();
@@ -73,22 +75,22 @@ namespace siig.Views_ViewModels
             {
                 switch (CurrentMethod)
                 {
-                    case meths.Scale:
+                    case EMeths.Scale:
                         ResultSignal = Operations.Scale(FirstSignal, Factor);
                         break;
-                    case meths.AddTwoSignals:
+                    case EMeths.AddTwoSignals:
                         ResultSignal = Operations.AddTwoSignals(FirstSignal, SecondSignal);
                         break;
-                    case meths.ExpandInTime:
+                    case EMeths.ExpandInTime:
                         ResultSignal = Operations.ExpandInTime(FirstSignal, Factor, !isSqueeze);
                         break;
-                    case meths.MultiplyTwoSignals:
+                    case EMeths.MultiplyTwoSignals:
                         ResultSignal = Operations.Multiply(FirstSignal, SecondSignal);
                         break;
-                    case meths.Reverse:
+                    case EMeths.Reverse:
                         ResultSignal = Operations.Reverse(FirstSignal);
                         break;
-                    case meths.ShiftByTime:
+                    case EMeths.ShiftByTime:
                         ResultSignal = Operations.ShiftByTime(FirstSignal, Factor);
                         break;
                     default:
@@ -111,77 +113,77 @@ namespace siig.Views_ViewModels
 
             }
 
-            var str = "";
+            OuputString = "";
             foreach (var item in ResultSignal)
             {
                 FinalSignalChartValues.Add(new ObservablePoint(item.Key, item.Value));
-                str += $"{item.Key};{item.Value:f4} ";
+                OuputString += $"{item.Key};{item.Value:f1} ";
             }
 
-            OutputSignal.Text = str;
+            OutputSignal.Text = OuputString;
         }
 
 
 
-        private meths StringToEnum(int s)
+        private EMeths StringToEnum(int s)
         {
-            meths f = (meths)s;
+            EMeths f = (EMeths)s;
             return f;
         }
 
         private void Input_OnMouseEnter(object sender, MouseEventArgs e)
         {
-            var box = sender as TextBox;
+            var Box = sender as TextBox;
 
-            if (box.Text == "index;garmonic")
+            if (Box.Text == "example: 1;2 2;2 5;3")
             {
-                box.Text = "";
+                Box.Text = "";
             }
 
-            box.BorderThickness = new Thickness(1);
-            box.Foreground = Brushes.AliceBlue;
+            Box.BorderThickness = new Thickness(1);
+            Box.Foreground = Brushes.AliceBlue;
         }
 
         private void Input_OnMouseLeave(object sender, MouseEventArgs e)
         {
-            var box = sender as TextBox;
-            var str = box.Text;
-            if (String.IsNullOrEmpty(str))
+            var Box = sender as TextBox;
+            var TemporaryString = Box.Text;
+            if (String.IsNullOrEmpty(TemporaryString))
             {
-                box.BorderThickness = new Thickness(0);
-                box.Text = "index;garmonic";
-                box.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#90a4ae"));
+                Box.BorderThickness = new Thickness(0);
+                Box.Text = "example: 1;2 2;2 5;3";
+                Box.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#90a4ae"));
             }
             else
             {
-                if (inputParser.isCorrect(str))
+                if (inputParser.isCorrect(TemporaryString))
                 {
-                    box.BorderThickness = new Thickness(0);
-                    if (box == InputFirstSignal)
+                    Box.BorderThickness = new Thickness(0);
+                    if (Box == InputFirstSignal)
                     {
-                        FirstSignal = DictionaryWorker.Sort(inputParser.Parse(str));
-                        box.Text = DictionaryWorker.ToString(FirstSignal);
+                        FirstSignal = DictionaryWorker.Sort(inputParser.Parse(TemporaryString));
+                        Box.Text = DictionaryWorker.ToString(FirstSignal);
                     }
                     else
                     {
-                        SecondSignal = DictionaryWorker.Sort(inputParser.Parse(str));
-                        box.Text = DictionaryWorker.ToString(SecondSignal);
+                        SecondSignal = DictionaryWorker.Sort(inputParser.Parse(TemporaryString));
+                        Box.Text = DictionaryWorker.ToString(SecondSignal);
 
                     }
                 }
                 else
                 {
-                    box.BorderThickness = new Thickness(1);
-                    box.BorderBrush = Brushes.Red;
+                    Box.BorderThickness = new Thickness(1);
+                    Box.BorderBrush = Brushes.Red;
                 }
             }
         }
 
         private void RadioButton_OnChecked(object sender, RoutedEventArgs e)
         {
-            var btn = sender as RadioButton;
+            var Btn = sender as RadioButton;
 
-            if (btn == ExpandRadioButton) isSqueeze = false;
+            if (Btn == ExpandRadioButton) isSqueeze = false;
             else isSqueeze = true;
         }
 
@@ -197,20 +199,23 @@ namespace siig.Views_ViewModels
             {
                 switch (CurrentMethod)
                 {
-                    case meths.Scale:
+                    case EMeths.Scale:
                         if (Factor < 0) IsProceeded = false;
                         break;
-                    case meths.AddTwoSignals:
+                    case EMeths.AddTwoSignals:
                         if (SecondSignal.Count == 0) IsProceeded = false;
                         break;
-                    case meths.ExpandInTime:
+                    case EMeths.ExpandInTime:
                         if (Factor <= 0) IsProceeded = false;
                         break;
-                    case meths.MultiplyTwoSignals:
+                    case EMeths.MultiplyTwoSignals:
                         if (SecondSignal.Count == 0) IsProceeded = false;
                         break;
-                    case meths.ShiftByTime:
+                    case EMeths.ShiftByTime:
                         if (Factor == 0) IsProceeded = false;
+                        break;
+                    case EMeths.Reverse:
+                        IsProceeded = true;
                         break;
                     default:
                         return false;
@@ -228,11 +233,11 @@ namespace siig.Views_ViewModels
             FinalSignalChartValues.Clear();
         }
 
-        private void SwitchBlocks(meths method)
+        private void SwitchBlocks(EMeths method)
         {
             switch (CurrentMethod)
             {
-                case meths.Scale:
+                case EMeths.Scale:
                     {
                         SettingsBlock.Visibility = Visibility.Visible;
                         SecondSignalBlock.Visibility = Visibility.Hidden;
@@ -250,7 +255,7 @@ namespace siig.Views_ViewModels
                         break;
                     }
 
-                case meths.AddTwoSignals:
+                case EMeths.AddTwoSignals:
                     {
                         SettingsBlock.Visibility = Visibility.Hidden;
                         SecondSignalBlock.Visibility = Visibility.Visible;
@@ -261,7 +266,7 @@ namespace siig.Views_ViewModels
                         break;
                     }
 
-                case meths.ExpandInTime:
+                case EMeths.ExpandInTime:
                     {
                         SettingsBlock.Visibility = Visibility.Visible;
                         SecondSignalBlock.Visibility = Visibility.Hidden;
@@ -278,7 +283,7 @@ namespace siig.Views_ViewModels
                         break;
                     }
 
-                case meths.MultiplyTwoSignals:
+                case EMeths.MultiplyTwoSignals:
                     {
                         SettingsBlock.Visibility = Visibility.Hidden;
                         SecondSignalBlock.Visibility = Visibility.Visible;
@@ -288,7 +293,7 @@ namespace siig.Views_ViewModels
 
                         break;
                     }
-                case meths.Reverse:
+                case EMeths.Reverse:
                     {
                         SecondSignalBlock.Visibility = Visibility.Hidden;
                         SettingsBlock.Visibility = Visibility.Hidden;
@@ -297,7 +302,7 @@ namespace siig.Views_ViewModels
                         Grid.SetRow(OutputBlock, 2);
                         break;
                     }
-                case meths.ShiftByTime:
+                case EMeths.ShiftByTime:
                     {
                         SecondSignalBlock.Visibility = Visibility.Hidden;
                         SettingsBlock.Visibility = Visibility.Visible;
@@ -317,9 +322,9 @@ namespace siig.Views_ViewModels
 
         }
 
-        private void SwapSize(bool straight)
+        private void SwapSize(bool Straight)
         {
-            if (straight)
+            if (Straight)
             {
                 ThirdRow.Height = new GridLength(3, GridUnitType.Star);
                 FourthRow.Height = new GridLength(2.5, GridUnitType.Star);
@@ -334,21 +339,31 @@ namespace siig.Views_ViewModels
         private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var Box = sender as ComboBox;
-            string s = Box.SelectedItem.ToString();
-            int cnt = 0;
+            string TempStr = Box.SelectedItem.ToString();
+            int Cnt = 0;
 
             foreach (var str in MethodsList)
             {
-                if (str == s)
+                if (str == TempStr)
                 {
-                    CurrentMethod = StringToEnum(cnt);
+                    CurrentMethod = StringToEnum(Cnt);
                     SwitchBlocks(CurrentMethod);
                     return;
                 }
 
-                cnt++;
+                Cnt++;
             }
         }
 
+        private void OutputSignal_OnMouseEnter(object sender, MouseEventArgs e)
+        {
+            if (OuputString != "")
+            {
+                ToolTip tp = new ToolTip();
+                tp.Placement = PlacementMode.Top;
+                tp.Content = OuputString;
+                OutputSignal.ToolTip = tp;
+            }
+        }
     }
 }

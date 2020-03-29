@@ -24,14 +24,17 @@ namespace siig
           
         };
 
-        private UserControl CurrentControl = Controls.First();
+        private UserControl CurrentControl;
 
         public static ChartValues<ObservablePoint> CorelationSignalChartValues = new ChartValues<ObservablePoint>();
 
         public MainWindow()
         {
             InitializeComponent();
+
+            CurrentControl = Controls.First();
             SettingsBlock.Content = CurrentControl;
+
             DataContext = CurrentControl;
         }
 
@@ -63,17 +66,17 @@ namespace siig
 
         private void UIElement_OnMouseLeave(object sender, MouseEventArgs e)
         {
-            var box = sender as GroupBox;
+            var Box = sender as GroupBox;
 
-            box.BorderThickness = new Thickness(0);
+            Box.BorderThickness = new Thickness(0);
         }
 
         private void NextMethod(object sender, MouseButtonEventArgs e)
         {
-           int index =  Controls.FindIndex(control=> control == CurrentControl);
-           if (index != Controls.Count - 1)
+           int IndexOfMethod =  Controls.FindIndex(control=> control == CurrentControl);
+           if (IndexOfMethod != Controls.Count - 1)
            {
-               CurrentControl = Controls[index + 1];
+               CurrentControl = Controls[IndexOfMethod + 1];
            }
 
            DataContext = CurrentControl;
@@ -84,10 +87,10 @@ namespace siig
 
         private void PreviousMethod(object sender, MouseButtonEventArgs e)
         {
-            int index = Controls.FindIndex(control => control == CurrentControl);
-            if (index != 0)
+            int IndexOfMethod = Controls.FindIndex(control => control == CurrentControl);
+            if (IndexOfMethod != 0)
             {
-                CurrentControl = Controls[index - 1];
+                CurrentControl = Controls[IndexOfMethod - 1];
             }
 
             DataContext = CurrentControl;
@@ -97,6 +100,10 @@ namespace siig
         }
 
 
+        private void PartaAme_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("Project by Marian Hupalo", "About", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
     }
 
 

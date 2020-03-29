@@ -41,7 +41,8 @@
                 <Image Grid.Column="0" Source="../icons/prev.png" VerticalAlignment="Center" MouseLeftButtonUp="PreviousMethod" />
                 <Label Grid.Column="1" Style="{StaticResource MainLabel}"  x:Name="partaAme"
                        VerticalContentAlignment="Center"
-                       Content="{Binding NameOfView}" />
+                       Content="{Binding NameOfView}"
+                       MouseDoubleClick="PartaAme_OnMouseDoubleClick"/>
                 <Image Grid.Column="2" Source="../icons/next.png" MouseLeftButtonUp="NextMethod" />
             </Grid>
         </GroupBox>

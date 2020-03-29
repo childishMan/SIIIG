@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using LiveCharts;
 using LiveCharts.Defaults;
-using siig.Annotations;
 using siig.models;
 using siig.methods;
 using visual;
@@ -28,6 +26,7 @@ namespace siig.Views_ViewModels
         private Dictionary<int, double> SecondSignal = new Dictionary<int, double>();
         private List<double> FinalSignal = new List<double>();
 
+        private string OutputString = "";
 
         public string NameOfView { get; set; } = "Corelation";
 
@@ -74,49 +73,60 @@ namespace siig.Views_ViewModels
 
         private void Input_OnMouseEnter(object sender, MouseEventArgs e)
         {
-            var box = sender as TextBox;
+            var Box = sender as TextBox;
 
-            if (box.Text == "index;garmonic")
+            if (Box.Text == "example: 1;2 2;2 5;3")
             {
-                box.Text = "";
+                Box.Text = "";
             }
 
-            box.BorderThickness = new Thickness(1);
-            box.Foreground = Brushes.AliceBlue;
+            Box.BorderThickness = new Thickness(1);
+            Box.Foreground = Brushes.AliceBlue;
         }
 
         private void Input_OnMouseLeave(object sender, MouseEventArgs e)
         {
-            var box = sender as TextBox;
-            var str = box.Text;
-            if (String.IsNullOrEmpty(str))
+            var Box = sender as TextBox;
+            var TempString = Box.Text;
+            if (String.IsNullOrEmpty(TempString))
             {
-                box.BorderThickness = new Thickness(0);
-                box.Text = "index;garmonic";
-                box.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#90a4ae"));
+                Box.BorderThickness = new Thickness(0);
+                Box.Text = "example: 1;2 2;2 5;3";
+                Box.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#90a4ae"));
             }
             else
             {
-                if (inputParser.isCorrect(str))
+                if (inputParser.isCorrect(TempString))
                 {
-                    box.BorderThickness = new Thickness(0);
-                    if (box == InputFirstSignal)
+                    Box.BorderThickness = new Thickness(0);
+                    if (Box == InputFirstSignal)
                     {
-                        FirstSignal = DictionaryWorker.Sort(inputParser.Parse(str));
-                        box.Text = DictionaryWorker.ToString(FirstSignal);
+                        FirstSignal = DictionaryWorker.Sort(inputParser.Parse(TempString));
+                        Box.Text = DictionaryWorker.ToString(FirstSignal);
                     }
                     else
                     {
-                        SecondSignal = DictionaryWorker.Sort(inputParser.Parse(str));
-                        box.Text = DictionaryWorker.ToString(SecondSignal);
+                        SecondSignal = DictionaryWorker.Sort(inputParser.Parse(TempString));
+                        Box.Text = DictionaryWorker.ToString(SecondSignal);
 
                     }
                 }
                 else
                 {
-                    box.BorderThickness = new Thickness(1);
-                    box.BorderBrush = Brushes.Red;
+                    Box.BorderThickness = new Thickness(1);
+                    Box.BorderBrush = Brushes.Red;
                 }
+            }
+        }
+
+        private void OutputSignal_OnMouseEnter(object sender, MouseEventArgs e)
+        {
+            if (OutputString != "")
+            {
+                ToolTip tp = new ToolTip();
+                tp.Placement = PlacementMode.Top;
+                tp.Content = OutputString;
+                OutputSignal.ToolTip = tp;
             }
         }
 
@@ -161,14 +171,13 @@ namespace siig.Views_ViewModels
 
                 if (FinalSignal.Count > 0)
                 {
-                    var Output = "";
-
+                    OutputString = "";
                     foreach (var item in FinalSignal)
                     {
-                        Output += $"{item:F3} ";
+                        OutputString += $"{item:F3} ";
                     }
 
-                    OutputSignal.Text = Output;
+                    OutputSignal.Text = OutputString;
                     MapListToChart();
                 }
             }

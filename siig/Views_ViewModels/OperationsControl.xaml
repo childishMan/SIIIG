@@ -27,7 +27,7 @@
             <StackPanel>
                 <Label Style="{StaticResource MainLabel}" Content="Input Signal"/>
                 <TextBox Name="InputFirstSignal" Style="{StaticResource inputBox}" BorderThickness="0" 
-                         HorizontalAlignment="Center" VerticalAlignment="Center" Text="index;garmonic" FontSize="10" 
+                         HorizontalAlignment="Center" VerticalAlignment="Center" Text="example: 1;2 2;2 5;3" FontSize="10" 
                          MouseEnter="Input_OnMouseEnter" MouseLeave="Input_OnMouseLeave"/>
             </StackPanel>
         </GroupBox>
@@ -71,7 +71,9 @@
         <GroupBox Name="OutputBlock" Grid.Row="3" Style="{StaticResource groupBox}">
             <StackPanel>
                 <Label Style="{StaticResource MainLabel}" Content="Output Signal"/>
-                <TextBox Name="OutputSignal" Style="{StaticResource inputBox}" IsEnabled="False" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="index;garmonic" FontSize="10" />
+                <TextBox Name="OutputSignal" Style="{StaticResource inputBox}" IsReadOnly="True" BorderThickness="0" 
+                         HorizontalAlignment="Center" VerticalAlignment="Center" Text="index;garmonic" FontSize="10"
+                         MouseEnter="OutputSignal_OnMouseEnter"/>
             </StackPanel>
         </GroupBox>
         <!--second signal-->
@@ -79,7 +81,7 @@
             <StackPanel>
                 <Label Style="{StaticResource MainLabel}" Content="Input Second Signal"/>
                 <TextBox Name="InputSecondSignal" Style="{StaticResource inputBox}" BorderThickness="0" 
-                         HorizontalAlignment="Center" VerticalAlignment="Center" Text="index;garmonic" FontSize="10" 
+                         HorizontalAlignment="Center" VerticalAlignment="Center" Text="example: 1;2 2;2 5;3" FontSize="10" 
                          MouseEnter="Input_OnMouseEnter"  MouseLeave="Input_OnMouseLeave"/>
             </StackPanel>
         </GroupBox>

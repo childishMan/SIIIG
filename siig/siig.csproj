@@ -86,6 +86,7 @@
     </ApplicationDefinition>
     <Compile Include="methods\IMethod.cs" />
     <Compile Include="methods\InputParser.cs" />
+    <Compile Include="models\Convolution.cs" />
     <Compile Include="models\Corelation.cs" />
     <Compile Include="models\Operations.cs" />
     <Compile Include="Properties\Annotations.cs" />
