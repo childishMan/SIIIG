@@ -13,7 +13,6 @@ using LiveCharts.Wpf;
 using siig.models;
 using siig.methods;
 using visual;
-using Xceed.Wpf.AvalonDock.Controls;
 
 namespace siig.Views_ViewModels
 {

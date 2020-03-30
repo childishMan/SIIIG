@@ -1,30 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
+using siig.methods;
 
 namespace siig.models
 {
     static class Corelation
     {
-        public static List<double> DictionaryToList(Dictionary<int, double> dict)
-        {
-            var List = new List<double>();
-
-            for (int i = dict.Keys.First(); i <= dict.Keys.Last(); i++)
-            {
-                if (dict.Keys.Contains(i))
-                {
-                    List.Add(dict[i]);
-                }
-                else
-                {
-                    List.Add(0);
-                }
-            }
-
-            return List;
-        }
 
         private static Tuple<List<double>, List<double>> NormalizeInput(List<double> x1,List<double> x2)
         {
@@ -49,8 +31,8 @@ namespace siig.models
         public static List<double> CrossCorealtion(Dictionary<int, double> FirstSignal, Dictionary<int, double> SecondSignal, bool normalize = false)
         {
 
-            var x1 = DictionaryToList(FirstSignal);
-            var x2 = DictionaryToList(SecondSignal);
+            var x1 = MyConverter.DictionaryToList(FirstSignal);
+            var x2 = MyConverter.DictionaryToList(SecondSignal);
 
             var tuple = NormalizeInput(x1, x2);
 
@@ -99,7 +81,7 @@ namespace siig.models
 
         public static List<double> autoCorelation(Dictionary<int, double> Signal , bool normalize = false)
         {
-            var x = DictionaryToList(Signal);
+            var x = MyConverter.DictionaryToList(Signal);
 
             List<double> corelated = new List<double>();
 
