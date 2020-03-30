@@ -49,19 +49,8 @@
 
         <!--chart-->
         <GroupBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Style="{StaticResource groupBox}" Margin="10,10,250,10" Grid.ColumnSpan="2" >
-            <lvc:CartesianChart Name="chart">
-                <!-- chart series -->
-                <lvc:CartesianChart.Series>
-                    <lvc:ScatterSeries Title="First Signal's Value"
-                                       Values="{Binding FirstSignalChartValues}" Fill="Aqua" />
-                    <lvc:ScatterSeries Title="Second Signal's Value"
-                                       Values="{Binding SecondSignalChartValues}" Fill="OrangeRed"/>
-                    <lvc:ScatterSeries Title="Result Signal's Value"
-                                       Values="{Binding FinalSignalChartValues}" Fill="GreenYellow"/>
+            <lvc:CartesianChart Name="chart" Series="{Binding Collection}" >
 
-                    <lvc:LineSeries Title="Corelation"
-                        Values="{Binding CorelationSignalChartValues}" DataLabels="False" Stroke="AliceBlue"/>
-                </lvc:CartesianChart.Series>
                 <!-- axes -->
                 <lvc:CartesianChart.AxisX>
                     <lvc:Axis Title="X" Foreground="AliceBlue" Position="LeftBottom">

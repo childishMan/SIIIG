@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -7,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using LiveCharts;
 using LiveCharts.Defaults;
+using LiveCharts.Wpf;
 using siig.methods;
 using visual;
 using Xceed.Wpf.Toolkit;
@@ -40,9 +43,11 @@ namespace siig.Views_ViewModels
         private Dictionary<int, double> SecondSignal = new Dictionary<int, double>();
         private Dictionary<int, double> ResultSignal = new Dictionary<int, double>();
 
-        public ChartValues<ObservablePoint> FirstSignalChartValues { get; set; }
-        public ChartValues<ObservablePoint> SecondSignalChartValues { get; set; }
-        public ChartValues<ObservablePoint> FinalSignalChartValues { get; set; }
+        private ChartValues<ObservablePoint> FirstSignalChartValues { get; set; }
+        private ChartValues<ObservablePoint> SecondSignalChartValues { get; set; }
+        private ChartValues<ObservablePoint> FinalSignalChartValues { get; set; }
+
+        public SeriesCollection Collection { get; set; }
 
         public string NameOfView { get; set; } = "Signal Operations";
 
@@ -60,9 +65,12 @@ namespace siig.Views_ViewModels
         public OperationsControl()
         {
             InitializeComponent();
+
             FirstSignalChartValues = new ChartValues<ObservablePoint>();
             SecondSignalChartValues = new ChartValues<ObservablePoint>();
             FinalSignalChartValues = new ChartValues<ObservablePoint>();
+
+            CreateSeries();
 
             DataContext = this;
         }
@@ -124,6 +132,31 @@ namespace siig.Views_ViewModels
         }
 
 
+        private void CreateSeries()
+        {
+            Collection = new SeriesCollection()
+            {
+                new ScatterSeries()
+                {
+                    Title = "First Signal",
+                    Values = FirstSignalChartValues,
+                    Fill=Brushes.LawnGreen
+                },
+                new ScatterSeries()
+                {
+                    Title="Result Signal",
+                    Values = FinalSignalChartValues,
+                    Fill = Brushes.OrangeRed
+                },
+                new ScatterSeries()
+                {
+                    Title="Second Signal",
+                    Values = SecondSignalChartValues,
+                    Fill=Brushes.Aqua
+                }
+            };
+
+        }
 
         private EMeths StringToEnum(int s)
         {
@@ -239,6 +272,7 @@ namespace siig.Views_ViewModels
             {
                 case EMeths.Scale:
                     {
+
                         SettingsBlock.Visibility = Visibility.Visible;
                         SecondSignalBlock.Visibility = Visibility.Hidden;
                         ExpandStackPanel.Visibility = Visibility.Hidden;
@@ -257,6 +291,7 @@ namespace siig.Views_ViewModels
 
                 case EMeths.AddTwoSignals:
                     {
+
                         SettingsBlock.Visibility = Visibility.Hidden;
                         SecondSignalBlock.Visibility = Visibility.Visible;
 
@@ -268,6 +303,7 @@ namespace siig.Views_ViewModels
 
                 case EMeths.ExpandInTime:
                     {
+
                         SettingsBlock.Visibility = Visibility.Visible;
                         SecondSignalBlock.Visibility = Visibility.Hidden;
                         ExpandStackPanel.Visibility = Visibility.Visible;
@@ -285,6 +321,7 @@ namespace siig.Views_ViewModels
 
                 case EMeths.MultiplyTwoSignals:
                     {
+
                         SettingsBlock.Visibility = Visibility.Hidden;
                         SecondSignalBlock.Visibility = Visibility.Visible;
 
@@ -295,6 +332,7 @@ namespace siig.Views_ViewModels
                     }
                 case EMeths.Reverse:
                     {
+
                         SecondSignalBlock.Visibility = Visibility.Hidden;
                         SettingsBlock.Visibility = Visibility.Hidden;
                         SwapSize(false);
@@ -304,6 +342,7 @@ namespace siig.Views_ViewModels
                     }
                 case EMeths.ShiftByTime:
                     {
+
                         SecondSignalBlock.Visibility = Visibility.Hidden;
                         SettingsBlock.Visibility = Visibility.Visible;
                         ExpandStackPanel.Visibility = Visibility.Hidden;

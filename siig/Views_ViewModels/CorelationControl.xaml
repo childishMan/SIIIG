@@ -45,7 +45,7 @@
 
                 <CheckBox Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" 
                           VerticalContentAlignment="Center"
-                          Checked="NormalizeCheckChanged">
+                          Click="NormalizeCheckChanged">
                     <Label Content="Normalize" Style="{StaticResource MainLabel}" FontSize="10"/>
                 </CheckBox>
             </Grid>

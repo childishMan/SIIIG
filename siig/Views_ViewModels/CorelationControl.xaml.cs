@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using LiveCharts;
 using LiveCharts.Defaults;
+using LiveCharts.Wpf;
 using siig.models;
 using siig.methods;
 using visual;
+using Xceed.Wpf.AvalonDock.Controls;
 
 namespace siig.Views_ViewModels
 {
@@ -21,7 +25,6 @@ namespace siig.Views_ViewModels
         private bool IsCrossCorelation = true;
         private bool Normalize = false;
 
-
         private Dictionary<int, double> FirstSignal = new Dictionary<int, double>();
         private Dictionary<int, double> SecondSignal = new Dictionary<int, double>();
         private List<double> FinalSignal = new List<double>();
@@ -30,20 +33,38 @@ namespace siig.Views_ViewModels
 
         public string NameOfView { get; set; } = "Corelation";
 
+        public SeriesCollection Collection { get; set; }
 
-        public ChartValues<ObservablePoint> CorelationSignalChartValues { get; set; }
+        private ChartValues<ObservableValue> CorelationSignalChartValues { get; set; }
 
 
 
         public CorelationControl()
         {
             InitializeComponent();
-            CorelationSignalChartValues = new ChartValues<ObservablePoint>();
+
+            CorelationSignalChartValues = new ChartValues<ObservableValue>();
+
+            BindSeries();
 
             DataContext = this;
         }
 
 
+        private void BindSeries()
+        {
+            Collection = new SeriesCollection()
+            {
+                new LineSeries()
+                {
+                    Title = "Correlation",
+                    Values = CorelationSignalChartValues,
+                    Stroke = Brushes.AliceBlue,
+                    Fill = Brushes.Transparent
+                }
+            };
+
+        }
 
         private void MethodButtonFired(object sender, RoutedEventArgs e)
         {
@@ -61,14 +82,21 @@ namespace siig.Views_ViewModels
                     IsCrossCorelation = false;
 
                     SecondSignalBlock.Visibility = Visibility.Hidden;
-                    Grid.SetRow(OutputBlock,2);
+                    Grid.SetRow(OutputBlock, 2);
                 }
             }
         }
 
         private void NormalizeCheckChanged(object sender, RoutedEventArgs e)
         {
-            Normalize = Convert.ToBoolean((sender as CheckBox).IsChecked);
+            if ((sender as CheckBox).IsChecked == true)
+            {
+                Normalize = true;
+            }
+            else
+            {
+                Normalize = false;
+            }
         }
 
         private void Input_OnMouseEnter(object sender, MouseEventArgs e)
@@ -130,16 +158,6 @@ namespace siig.Views_ViewModels
             }
         }
 
-        private void MapListToChart()
-        {
-            CorelationSignalChartValues.Clear();
-
-            for (int i = 0; i < FinalSignal.Count; i++)
-            {
-                CorelationSignalChartValues.Add(new ObservablePoint(i,FinalSignal[i]));
-            }
-        }
-
 
 
         public bool IsAllChecked()
@@ -149,17 +167,19 @@ namespace siig.Views_ViewModels
                 return true;
             }
 
-            if (IsCrossCorelation && SecondSignal.Count > 0 && FirstSignal.Count>0)
+            if (IsCrossCorelation && SecondSignal.Count > 0 && FirstSignal.Count > 0)
             {
                 return true;
             }
-        return false;
+            return false;
         }
 
         public void Proceed()
         {
             if (IsAllChecked())
             {
+                CorelationSignalChartValues.Clear();
+
                 if (IsCrossCorelation)
                 {
                     FinalSignal = Corelation.MutualCorealtion(FirstSignal, SecondSignal, Normalize);
@@ -172,13 +192,14 @@ namespace siig.Views_ViewModels
                 if (FinalSignal.Count > 0)
                 {
                     OutputString = "";
-                    foreach (var item in FinalSignal)
-                    {
-                        OutputString += $"{item:F3} ";
-                    }
+                    foreach (var item in FinalSignal) OutputString += $"{item:F3} ";
 
                     OutputSignal.Text = OutputString;
-                    MapListToChart();
+
+                    foreach (var item in FinalSignal) CorelationSignalChartValues.Add(new ObservableValue(item));
+
+                    BindSeries();
+
                 }
             }
         }

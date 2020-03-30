@@ -6,8 +6,11 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using LiveCharts;
 using LiveCharts.Defaults;
+using LiveCharts.Wpf;
+using LiveCharts.Wpf.Charts.Base;
 using siig.methods;
 using siig.Views_ViewModels;
+using Xceed.Wpf.Toolkit.Core.Converters;
 
 namespace siig
 {
@@ -26,14 +29,18 @@ namespace siig
 
         private UserControl CurrentControl;
 
+        public static CartesianChart Chart;
+
         public static ChartValues<ObservablePoint> CorelationSignalChartValues = new ChartValues<ObservablePoint>();
 
         public MainWindow()
         {
             InitializeComponent();
+            Chart = chart;
 
             CurrentControl = Controls.First();
             SettingsBlock.Content = CurrentControl;
+    
 
             DataContext = CurrentControl;
         }
