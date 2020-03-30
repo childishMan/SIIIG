@@ -26,14 +26,40 @@ namespace siig.models
             return List;
         }
 
-        public static List<double> MutualCorealtion(Dictionary<int, double> FirstSignal, Dictionary<int, double> SecondSignal, bool normalize = false)
+        private static Tuple<List<double>, List<double>> NormalizeInput(List<double> x1,List<double> x2)
         {
+            if (x1.Count > x2.Count)
+            {
+                for (int i = 0; i <= x1.Count - x2.Count + 1; i++)
+                {
+                    x2.Add(0);
+                }
+            }
+            if (x2.Count > x1.Count)
+            {
+                for (int i = 0; i <= x2.Count - x1.Count + 1; i++)
+                {
+                    x1.Add(0);
+                }
+            }
+
+            return Tuple.Create(x1, x2);
+        }
+
+        public static List<double> CrossCorealtion(Dictionary<int, double> FirstSignal, Dictionary<int, double> SecondSignal, bool normalize = false)
+        {
+
             var x1 = DictionaryToList(FirstSignal);
             var x2 = DictionaryToList(SecondSignal);
-            
-            int size = (x1.Count >= x2.Count) ? x1.Count : x2.Count;
 
+            var tuple = NormalizeInput(x1, x2);
+
+            x1 = tuple.Item1;
+            x2 = tuple.Item2;
+
+            var size = x1.Count;
             List<double> corelated = new List<double>();
+
             for (int i = 0; i < size * 2 - 1; i++)
             {
                 corelated.Add(0);

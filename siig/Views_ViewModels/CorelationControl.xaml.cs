@@ -182,7 +182,7 @@ namespace siig.Views_ViewModels
 
                 if (IsCrossCorelation)
                 {
-                    FinalSignal = Corelation.MutualCorealtion(FirstSignal, SecondSignal, Normalize);
+                    FinalSignal = Corelation.CrossCorealtion(FirstSignal, SecondSignal, Normalize);
                 }
                 else
                 {
