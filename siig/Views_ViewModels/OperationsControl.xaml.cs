@@ -99,7 +99,7 @@ namespace siig.Views_ViewModels
                         ResultSignal = Operations.Reverse(FirstSignal);
                         break;
                     case EMeths.ShiftByTime:
-                        ResultSignal = Operations.ShiftByTime(FirstSignal, Factor);
+                        ResultSignal = Operations.ShiftByTime(FirstSignal, Factor*-1);
                         break;
                     default:
                         break;
@@ -136,18 +136,19 @@ namespace siig.Views_ViewModels
         {
             Collection = new SeriesCollection()
             {
+                new ColumnSeries()
+                {
+                    Title="Result Signal",
+                    Values = FinalSignalChartValues,
+                    Fill = Brushes.OrangeRed
+                },
                 new ScatterSeries()
                 {
                     Title = "First Signal",
                     Values = FirstSignalChartValues,
                     Fill=Brushes.LawnGreen
                 },
-                new ScatterSeries()
-                {
-                    Title="Result Signal",
-                    Values = FinalSignalChartValues,
-                    Fill = Brushes.OrangeRed
-                },
+               
                 new ScatterSeries()
                 {
                     Title="Second Signal",
