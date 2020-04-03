@@ -12,14 +12,14 @@ namespace siig.models
         {
             if (x1.Count > x2.Count)
             {
-                for (int i = 0; i <= x1.Count - x2.Count + 1; i++)
+                while (x2.Count != x1.Count)
                 {
                     x2.Add(0);
                 }
             }
-            if (x2.Count > x1.Count)
+           else if (x2.Count > x1.Count)
             {
-                for (int i = 0; i <= x2.Count - x1.Count + 1; i++)
+                while (x1.Count != x2.Count)
                 {
                     x1.Add(0);
                 }
