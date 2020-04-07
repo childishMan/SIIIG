@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace siig.models
 {
-    class FFT
+    class FastFourierTransform
     {
         public static List<complex> ForwardFourierTransform(List<complex> Signal)
         {

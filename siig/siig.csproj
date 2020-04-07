@@ -89,7 +89,7 @@
     <Compile Include="methods\InputParser.cs" />
     <Compile Include="models\Convolution.cs" />
     <Compile Include="models\Corelation.cs" />
-    <Compile Include="models\FFT.cs" />
+    <Compile Include="models\FastFourierTransform.cs" />
     <Compile Include="models\Operations.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Views_ViewModels\ConvolutionControl.xaml.cs">

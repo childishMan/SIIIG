@@ -208,9 +208,9 @@ namespace siig.Views_ViewModels
                 var InputSignal = ComplexConverter.FromList(Signal);
 
                 if (IsForward)
-                    Result = FFT.ForwardFourierTransform(InputSignal);
+                    Result = FastFourierTransform.ForwardFourierTransform(InputSignal);
                 else
-                    Result = FFT.InverseFourierTransform(InputSignal);
+                    Result = FastFourierTransform.InverseFourierTransform(InputSignal);
 
                 foreach (var item in Result)
                 {
