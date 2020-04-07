@@ -91,6 +91,9 @@
     <Compile Include="models\Corelation.cs" />
     <Compile Include="models\Operations.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Views_ViewModels\ConvolutionControl.xaml.cs">
+      <DependentUpon>ConvolutionControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views_ViewModels\CorelationControl.xaml.cs">
       <DependentUpon>CorelationControl.xaml</DependentUpon>
     </Compile>
@@ -118,6 +121,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="styles\labels.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views_ViewModels\ConvolutionControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

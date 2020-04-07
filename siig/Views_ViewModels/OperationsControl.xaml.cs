@@ -41,7 +41,7 @@ namespace siig.Views_ViewModels
 
         private Dictionary<int, double> FirstSignal = new Dictionary<int, double>();
         private Dictionary<int, double> SecondSignal = new Dictionary<int, double>();
-        private Dictionary<int, double> ResultSignal = new Dictionary<int, double>();
+        private Dictionary<int, double> FinalSignal = new Dictionary<int, double>();
 
         private ChartValues<ObservablePoint> FirstSignalChartValues { get; set; }
         private ChartValues<ObservablePoint> SecondSignalChartValues { get; set; }
@@ -84,22 +84,22 @@ namespace siig.Views_ViewModels
                 switch (CurrentMethod)
                 {
                     case EMeths.Scale:
-                        ResultSignal = Operations.Scale(FirstSignal, Factor);
+                        FinalSignal = Operations.Scale(FirstSignal, Factor);
                         break;
                     case EMeths.AddTwoSignals:
-                        ResultSignal = Operations.AddTwoSignals(FirstSignal, SecondSignal);
+                        FinalSignal = Operations.AddTwoSignals(FirstSignal, SecondSignal);
                         break;
                     case EMeths.ExpandInTime:
-                        ResultSignal = Operations.ExpandInTime(FirstSignal, Factor, !isSqueeze);
+                        FinalSignal = Operations.ExpandInTime(FirstSignal, Factor, !isSqueeze);
                         break;
                     case EMeths.MultiplyTwoSignals:
-                        ResultSignal = Operations.Multiply(FirstSignal, SecondSignal);
+                        FinalSignal = Operations.Multiply(FirstSignal, SecondSignal);
                         break;
                     case EMeths.Reverse:
-                        ResultSignal = Operations.Reverse(FirstSignal);
+                        FinalSignal = Operations.Reverse(FirstSignal);
                         break;
                     case EMeths.ShiftByTime:
-                        ResultSignal = Operations.ShiftByTime(FirstSignal, Factor*-1);
+                        FinalSignal = Operations.ShiftByTime(FirstSignal, Factor*-1);
                         break;
                     default:
                         break;
@@ -122,7 +122,7 @@ namespace siig.Views_ViewModels
             }
 
             OuputString = "";
-            foreach (var item in ResultSignal)
+            foreach (var item in FinalSignal)
             {
                 FinalSignalChartValues.Add(new ObservablePoint(item.Key, item.Value));
                 OuputString += $"{item.Key};{item.Value:f1} ";
