@@ -18,14 +18,15 @@ namespace siig
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window,INotifyPropertyChanged
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
         private static List<UserControl> Controls = new List<UserControl>()
         {
             new ConvolutionControl(),
             new OperationsControl(),
-            new CorelationControl()
-          
+            new CorelationControl(),
+            new FFTControl()
+
         };
 
         private UserControl CurrentControl;
@@ -39,7 +40,7 @@ namespace siig
             CurrentControl = Controls.First();
 
             SettingsBlock.Content = CurrentControl;
-    
+
 
             DataContext = CurrentControl;
         }
@@ -51,9 +52,9 @@ namespace siig
             var MethodControl = CurrentControl as IMethod;
 
             if (MethodControl.IsAllChecked())
-            { 
+            {
                 MethodControl.Proceed();
-                PropertyChanged?.Invoke(null,null);
+                PropertyChanged?.Invoke(null, null);
             }
 
             else
@@ -79,14 +80,14 @@ namespace siig
 
         private void NextMethod(object sender, MouseButtonEventArgs e)
         {
-           int IndexOfMethod =  Controls.FindIndex(control=> control == CurrentControl);
-           if (IndexOfMethod != Controls.Count - 1)
-           {
-               CurrentControl = Controls[IndexOfMethod + 1];
-           }
+            int IndexOfMethod = Controls.FindIndex(control => control == CurrentControl);
+            if (IndexOfMethod != Controls.Count - 1)
+            {
+                CurrentControl = Controls[IndexOfMethod + 1];
+            }
 
-           DataContext = CurrentControl;
-           SettingsBlock.Content = CurrentControl;
+            DataContext = CurrentControl;
+            SettingsBlock.Content = CurrentControl;
 
             PropertyChanged?.Invoke(null, null);
         }

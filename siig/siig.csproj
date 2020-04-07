@@ -89,6 +89,7 @@
     <Compile Include="methods\InputParser.cs" />
     <Compile Include="models\Convolution.cs" />
     <Compile Include="models\Corelation.cs" />
+    <Compile Include="models\FFT.cs" />
     <Compile Include="models\Operations.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Views_ViewModels\ConvolutionControl.xaml.cs">
@@ -96,6 +97,9 @@
     </Compile>
     <Compile Include="Views_ViewModels\CorelationControl.xaml.cs">
       <DependentUpon>CorelationControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views_ViewModels\FFTControl.xaml.cs">
+      <DependentUpon>FFTControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views_ViewModels\OperationsControl.xaml.cs">
       <DependentUpon>OperationsControl.xaml</DependentUpon>
@@ -112,6 +116,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="styles\ControlWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="styles\groupBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -124,11 +132,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="styles\RichTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views_ViewModels\ConvolutionControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views_ViewModels\CorelationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views_ViewModels\FFTControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

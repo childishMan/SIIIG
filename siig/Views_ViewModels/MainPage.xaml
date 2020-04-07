@@ -48,7 +48,7 @@
         </GroupBox>
 
         <!--chart-->
-        <GroupBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Style="{StaticResource groupBox}" Margin="10,10,250,10" Grid.ColumnSpan="2" >
+        <GroupBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Style="{StaticResource groupBox}" Grid.ColumnSpan="1" >
             <lvc:CartesianChart Name="chart" Series="{Binding Collection}" >
 
                 <!-- axes -->
