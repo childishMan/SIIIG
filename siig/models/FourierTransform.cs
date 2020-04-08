@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace siig.models
 {
-    class FastFourierTransform
+    class FourierTransform
     {
         public static List<complex> ForwardFourierTransform(List<complex> Signal)
         {
@@ -91,6 +91,26 @@ namespace siig.models
 
             return Y;
         }
+
+        public static List<complex> DiscreteFourierTransform(List<complex> Signal)
+        {
+            int N = Signal.Count;
+
+            List<complex> Y = new List<complex>();
+
+            for (int i = 0; i < N; i++)
+            {
+                Y.Add(new complex(0));
+
+                for (int j = 0; j < N; j++)
+                {
+                    var w = ComplexConverter.FromRadians(1, (-2 * Math.PI * i * j) / N);
+                    Y[i] += w * Signal[j];
+                }
+            }
+
+            return Y;
+        }
     }
 
     public class complex
@@ -110,7 +130,7 @@ namespace siig.models
         {
             get
             {
-                var vall = Math.Atan(img / real)*(180/Math.PI);
+                var vall = Math.Atan(img / real) * (180 / Math.PI);
                 if (Double.IsNaN(vall))
                 {
                     vall = 0;
@@ -161,40 +181,38 @@ namespace siig.models
 
         public override string ToString()
         {
-            var sb = new StringBuilder();
-            sb.Append($"{real:F2}");
+            string num = $"{real:F2}";
             if (img != 0)
             {
                 if (img > 0)
-                    sb.Append(" + ");
+                    num += " + ";
                 else if (img < 0)
-                    sb.Append(" - ");
-                sb.Append($"{Math.Abs(img):F2}");
-                sb.Append("i");
+                    num += " - ";
+
+                num += $"{Math.Abs(img):F2}i";
             }
 
-            sb.Append($" M:{Magnitude:F2} P:{Phase:F2}");
-            return sb.ToString();
+            return num;
         }
-    }
+}
 
-    public class ComplexConverter
+public class ComplexConverter
+{
+    public static complex FromRadians(double r, double rad)
     {
-        public static complex FromRadians(double r, double rad)
-        {
-            return new complex(r * Math.Cos(rad), r * Math.Sin(rad));
-        }
-
-        public static List<complex> FromList(List<double> list)
-        {
-            var ListOFComplex = new List<complex>();
-
-            foreach (var item in list)
-            {
-                ListOFComplex.Add(new complex(item, 0));
-            }
-
-            return ListOFComplex;
-        }
+        return new complex(r * Math.Cos(rad), r * Math.Sin(rad));
     }
+
+    public static List<complex> FromList(List<double> list)
+    {
+        var ListOFComplex = new List<complex>();
+
+        foreach (var item in list)
+        {
+            ListOFComplex.Add(new complex(item, 0));
+        }
+
+        return ListOFComplex;
+    }
+}
 }

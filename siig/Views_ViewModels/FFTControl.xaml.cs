@@ -27,7 +27,7 @@ namespace siig.Views_ViewModels
     public partial class FFTControl : UserControl, IMethod
     {
 
-        public string NameOfView { get; set; } = "f f t";
+        public string NameOfView { get; set; } = "Fourier";
 
         public SeriesCollection Collection { get; set; } = new SeriesCollection();
 
@@ -43,6 +43,8 @@ namespace siig.Views_ViewModels
 
         private bool IsForward = true;
 
+        private bool IsBuilded = false;
+
 
         private enum Charts
         {
@@ -52,6 +54,15 @@ namespace siig.Views_ViewModels
         }
 
         private Charts CurrentChartType = (Charts)0;
+
+        private enum Methods
+        {
+            FFT = 0,
+            DFT = 1
+        }
+
+        private Methods CurrentMethod = (Methods)0;
+        private Methods PreviousMethod = (Methods)0;
 
         public FFTControl()
         {
@@ -66,6 +77,7 @@ namespace siig.Views_ViewModels
         private void BindSeries()
         {
             Collection.Clear();
+            ClearBindableCollections();
 
             switch (CurrentChartType)
             {
@@ -117,28 +129,28 @@ namespace siig.Views_ViewModels
                     }
             }
 
-     
+
         }
 
         private void BindSignal()
         {
             ChartValues.Clear();
 
-            Signal.Add(0);
-            Signal.Add(0);
-            Signal.Add(0);
-
             foreach (var item in Signal)
             {
                 ChartValues.Add(new ObservableValue(item));
             }
+            ChartValues.Add(new ObservableValue(0));
+            ChartValues.Add(new ObservableValue(0));
+            ChartValues.Add(new ObservableValue(0));
         }
 
         private void BindMagnitude()
         {
             ChartValues.Clear();
 
-            GetMagnitude();
+            if (Magnitude.Count == 0)
+                GetMagnitude();
 
             foreach (var item in Magnitude)
             {
@@ -165,7 +177,8 @@ namespace siig.Views_ViewModels
         {
             ChartValues.Clear();
 
-            GetPhase();
+            if (Phase.Count == 0)
+                GetPhase();
 
             foreach (var item in Phase)
             {
@@ -190,6 +203,12 @@ namespace siig.Views_ViewModels
         }
 
 
+        private void ClearBindableCollections()
+        {
+            Magnitude.Clear();
+            Phase.Clear();
+        }
+
         public bool IsAllChecked()
         {
             if (Signal.Count != 0)
@@ -203,18 +222,35 @@ namespace siig.Views_ViewModels
 
             if (IsAllChecked())
             {
+                PreviousMethod = CurrentMethod;
+
+                IsBuilded = true;
                 OutputString = "";
 
                 var InputSignal = ComplexConverter.FromList(Signal);
 
-                if (IsForward)
-                    Result = FastFourierTransform.ForwardFourierTransform(InputSignal);
+                if (CurrentMethod == Methods.FFT)
+                {
+
+                    if (IsForward)
+                        Result = FourierTransform.ForwardFourierTransform(InputSignal);
+                    else
+                        Result = FourierTransform.InverseFourierTransform(InputSignal);
+                }
                 else
-                    Result = FastFourierTransform.InverseFourierTransform(InputSignal);
+                {
+                    Result = FourierTransform.DiscreteFourierTransform(InputSignal);
+
+                }
 
                 foreach (var item in Result)
                 {
-                    OutputString += item.ToString() + "\n";
+                    if (CurrentChartType == Charts.Signal)
+                        OutputString += "  " + item.ToString() + "\n";
+                    else if (CurrentChartType == Charts.Magnitude)
+                        OutputString += $"  {item.Magnitude:F3}\n";
+                    else if (CurrentChartType == Charts.Phase)
+                        OutputString += $"  {item.Phase:F3}\n";
                 }
 
                 BindSeries();
@@ -225,9 +261,13 @@ namespace siig.Views_ViewModels
 
         }
 
-        private void Method_OnChecked(object sender, RoutedEventArgs e)
+        private void FFTMethod_OnChecked(object sender, RoutedEventArgs e)
         {
             var Method = sender as RadioButton;
+
+            Collection.Clear();
+            ClearBindableCollections();
+
 
             if (Method == ForwardFFT)
             {
@@ -237,31 +277,33 @@ namespace siig.Views_ViewModels
             {
                 IsForward = false;
             }
+            Proceed();
         }
 
         private void ChartType_OnChecked(object sender, RoutedEventArgs e)
         {
             var Type = sender as RadioButton;
 
+            Collection.Clear();
+            ClearBindableCollections();
+
             if (Type == ShowSignal)
             {
                 CurrentChartType = Charts.Signal;
-                return;
             }
 
-            if (Type == ShowMagnitude)
+            else if (Type == ShowMagnitude)
             {
                 CurrentChartType = Charts.Magnitude;
-                return;
             }
 
-            if (Type == ShowPhase)
+            else if (Type == ShowPhase)
             {
                 CurrentChartType = Charts.Phase;
-                return;
             }
 
-            return;
+            if (IsBuilded && CurrentMethod == PreviousMethod)
+                BindSeries();
         }
 
         private void Input_OnMouseEnter(object sender, MouseEventArgs e)
@@ -281,7 +323,7 @@ namespace siig.Views_ViewModels
         {
             var Box = sender as TextBox;
             var TempString = Box.Text;
-            if (String.IsNullOrEmpty(TempString) || TempString== "example: 1;2 2;2 5;3")
+            if (String.IsNullOrEmpty(TempString) || TempString == "example: 1;2 2;2 5;3")
             {
                 Box.BorderThickness = new Thickness(0);
                 Box.Text = "example: 1;2 2;2 5;3";
@@ -289,6 +331,7 @@ namespace siig.Views_ViewModels
             }
             else
             {
+                IsBuilded = false;
                 if (inputParser.isCorrect(TempString))
                 {
                     Box.BorderThickness = new Thickness(0);
@@ -301,6 +344,40 @@ namespace siig.Views_ViewModels
                     Box.BorderThickness = new Thickness(1);
                     Box.BorderBrush = Brushes.Red;
                 }
+            }
+        }
+
+        private void Method_OnChecked(object sender, RoutedEventArgs e)
+        {
+            var Method = sender as RadioButton;
+
+
+            if (SettingsBlock != null)
+            {
+                Collection.Clear();
+                ClearBindableCollections();
+
+                if (Method == FastFourierButton)
+                {
+                    CurrentMethod = Methods.FFT;
+                    CurrentChartType = (Charts) 0;
+
+                    ForwardFFT.IsChecked = true;
+                    IsForward = true;
+                    ShowSignal.IsChecked = true;
+
+                    SettingsBlock.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    CurrentMethod = Methods.DFT;
+                    CurrentChartType = (Charts) 0;
+                    ShowSignal.IsChecked = true;
+
+                    SettingsBlock.Visibility = Visibility.Collapsed;
+                }
+
+                Proceed();
             }
         }
     }

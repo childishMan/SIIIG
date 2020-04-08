@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
@@ -11,6 +12,8 @@ using LiveCharts.Wpf.Charts.Base;
 using siig.methods;
 using siig.Views_ViewModels;
 using Xceed.Wpf.Toolkit.Core.Converters;
+using Color = System.Drawing.Color;
+using ColorConverter = System.Drawing.ColorConverter;
 
 namespace siig
 {
@@ -68,14 +71,16 @@ namespace siig
         {
             var box = sender as GroupBox;
 
-            box.BorderThickness = new Thickness(1);
+            box.Background =
+                new SolidColorBrush(
+                    (System.Windows.Media.Color) System.Windows.Media.ColorConverter.ConvertFromString("#7b1fa2"));
         }
 
         private void UIElement_OnMouseLeave(object sender, MouseEventArgs e)
         {
-            var Box = sender as GroupBox;
+            var box = sender as GroupBox;
 
-            Box.BorderThickness = new Thickness(0);
+            box.Background = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#8e24aa"));
         }
 
         private void NextMethod(object sender, MouseButtonEventArgs e)

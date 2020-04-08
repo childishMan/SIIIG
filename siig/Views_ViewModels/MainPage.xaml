@@ -72,10 +72,11 @@
         <ContentControl Grid.Row="1" Grid.Column="1" Background="AliceBlue" x:Name="SettingsBlock" />
         <!--button stack-->
         <GroupBox Grid.Row="2" Grid.Column="1" Style="{StaticResource groupBox}"
-                  MouseLeftButtonUp="Proceed_OnClick"
                   MouseEnter="UIElement_OnMouseEnter" MouseLeave="UIElement_OnMouseLeave"
+                  MouseLeftButtonUp="Proceed_OnClick"
                   BorderBrush="{StaticResource ItemsBorderBrush}">
-            <StackPanel Margin="5,5,5,0">
+            <StackPanel Margin="5,5,5,0"    
+                        >
                 <Label Style="{StaticResource MainLabel}" FontSize="10" Content="Proceed"/>
             </StackPanel>
 
