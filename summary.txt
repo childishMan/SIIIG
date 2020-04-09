@@ -1,0 +1,1 @@
+за цей урок я дізнався про меню issues, projects, закриття issues за допомгою pull requests.
