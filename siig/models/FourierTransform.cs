@@ -92,24 +92,44 @@ namespace siig.models
             return Y;
         }
 
-        public static List<complex> DiscreteFourierTransform(List<complex> Signal)
+        public static List<complex> ForwardDiscreteFourierTransform(List<complex> Signal)
         {
             int N = Signal.Count;
 
-            List<complex> Y = new List<complex>();
+            List<complex> OutSignal = new List<complex>();
 
             for (int i = 0; i < N; i++)
             {
-                Y.Add(new complex(0));
+                OutSignal.Add(new complex(0));
 
                 for (int j = 0; j < N; j++)
                 {
                     var w = ComplexConverter.FromRadians(1, (-2 * Math.PI * i * j) / N);
-                    Y[i] += w * Signal[j];
+                    OutSignal[i] += w * Signal[j];
                 }
             }
 
-            return Y;
+            return OutSignal;
+        }
+
+        public static List<complex> InverseDiscreteFourierTransform(List<complex> Signal)
+        {
+            int N = Signal.Count;
+
+            List<complex> OutSignal = new List<complex>();
+
+            for (int i = 0; i < N; i++)
+            {
+                OutSignal.Add(new complex(0));
+
+                for (int j = 0; j < N; j++)
+                {
+                    var w = ComplexConverter.FromRadians(1, (2 * Math.PI * i * j) / N);
+                    OutSignal[i] += (w * Signal[j]) / N;
+                }
+            }
+
+            return OutSignal;
         }
     }
 

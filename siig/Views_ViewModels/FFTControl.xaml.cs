@@ -239,7 +239,10 @@ namespace siig.Views_ViewModels
                 }
                 else
                 {
-                    Result = FourierTransform.DiscreteFourierTransform(InputSignal);
+                    if (IsForward)
+                        Result = FourierTransform.ForwardDiscreteFourierTransform(InputSignal);
+                    else
+                        Result = FourierTransform.InverseDiscreteFourierTransform(InputSignal);
 
                 }
 
@@ -303,7 +306,7 @@ namespace siig.Views_ViewModels
             }
 
             if (IsBuilded && CurrentMethod == PreviousMethod)
-                BindSeries();
+                Proceed();
         }
 
         private void Input_OnMouseEnter(object sender, MouseEventArgs e)
@@ -366,7 +369,6 @@ namespace siig.Views_ViewModels
                     IsForward = true;
                     ShowSignal.IsChecked = true;
 
-                    SettingsBlock.Visibility = Visibility.Visible;
                 }
                 else
                 {
@@ -374,7 +376,8 @@ namespace siig.Views_ViewModels
                     CurrentChartType = (Charts) 0;
                     ShowSignal.IsChecked = true;
 
-                    SettingsBlock.Visibility = Visibility.Collapsed;
+                    IsForward = true;
+                    ForwardFFT.IsChecked = true;
                 }
 
                 Proceed();
