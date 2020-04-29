@@ -200,6 +200,12 @@
     <Resource Include="icons\next.png" />
     <Resource Include="icons\prev.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\CControl\CControl\CustomControls.csproj">
+      <Project>{2A7724F6-0B20-4E79-B6EF-C5333901F689}</Project>
+      <Name>CustomControls</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

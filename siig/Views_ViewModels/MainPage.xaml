@@ -1,20 +1,22 @@
-﻿<Window x:Class="siig.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:siig"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:windows="clr-namespace:System.Windows;assembly=PresentationFramework"
+        x:Class="siig.MainWindow"
         mc:Ignorable="d"
         Icon="../icons/icon.png"
+
+        xmlns:xd="clr-namespace:CustomControls;assembly=CustomControls"
         Title="SIIIG" Height="450" Width="850" ResizeMode="CanMinimize">
 
     <Window.Resources>
-        <Style x:Key="groupBox" TargetType="GroupBox">
-            <Setter Property="Background" Value="#8e24aa"/>
+        <Style x:Key="groupBox" TargetType="{x:Type GroupBox}">
+            <Setter Property="Background" Value="{StaticResource ItemsBackgroundBrush}"/>
             <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="BorderBrush" Value="#3949ab"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ItemsBorderBrush}"/>
             <Setter Property="Margin" Value="10"/>
         </Style>
     </Window.Resources>
@@ -30,7 +32,7 @@
         </Grid.ColumnDefinitions>
 
         <!--image stack-->
-        <GroupBox Grid.Row="0" Grid.Column="1" Style="{DynamicResource groupBox }" VerticalContentAlignment="Center">
+        <GroupBox Grid.Row="0" Grid.Column="1" Style="{DynamicResource groupBox}" VerticalContentAlignment="Center">
             <Grid Margin="0,0,0.4,-6.2" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
@@ -43,13 +45,15 @@
                        VerticalContentAlignment="Center"
                        Content="{Binding NameOfView}"
                        MouseDoubleClick="PartaAme_OnMouseDoubleClick"/>
+
+
                 <Image Grid.Column="2" Source="../icons/next.png" MouseLeftButtonUp="NextMethod" />
             </Grid>
         </GroupBox>
 
         <!--chart-->
         <GroupBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Style="{StaticResource groupBox}" Grid.ColumnSpan="1" >
-            <lvc:CartesianChart Name="chart" Series="{Binding Collection}" >
+            <lvc:CartesianChart x:Name="chart" Series="{Binding Collection}" >
 
                 <!-- axes -->
                 <lvc:CartesianChart.AxisX>
@@ -68,18 +72,15 @@
                 </lvc:CartesianChart.AxisY>
             </lvc:CartesianChart>
         </GroupBox>
+        
+        <ContentControl Grid.Row="1" Grid.Column="1" Content="{Binding CurrentControl,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <ContentControl Grid.Row="1" Grid.Column="1" Background="AliceBlue" x:Name="SettingsBlock" />
-        <!--button stack-->
-        <GroupBox Grid.Row="2" Grid.Column="1" Style="{StaticResource groupBox}"
-                  MouseEnter="UIElement_OnMouseEnter" MouseLeave="UIElement_OnMouseLeave"
-                  MouseLeftButtonUp="Proceed_OnClick"
-                  BorderBrush="{StaticResource ItemsBorderBrush}">
-            <StackPanel Margin="5,5,5,0"    
-                        >
-                <Label Style="{StaticResource MainLabel}" FontSize="10" Content="Proceed"/>
-            </StackPanel>
+        <xd:tButton Grid.Row="2" Grid.Column="1" 
+                    Foreground="{StaticResource TextBrush}" Background="{StaticResource ItemsBackgroundBrush}"
+                    HoverBrush="{StaticResource HoverColor}" BorderBrush="{StaticResource ItemsBorderBrush}" 
+                    VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="font/#Lobster"
+                    Radius="11" FontSize="15"
+                    Margin="0,5"/>
 
-        </GroupBox>
     </Grid>
 </Window>

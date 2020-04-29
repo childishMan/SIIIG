@@ -17,10 +17,6 @@ using ColorConverter = System.Drawing.ColorConverter;
 
 namespace siig
 {
-
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
         private static List<UserControl> Controls = new List<UserControl>()
@@ -32,7 +28,17 @@ namespace siig
 
         };
 
-        private UserControl CurrentControl;
+        private UserControl _CurrentControl;
+
+        public UserControl CurrentControl
+        {
+            get { return _CurrentControl; }
+            set
+            {
+                PropertyChanged += delegate { };
+                _CurrentControl = value;
+            }
+        }
 
         public static ChartValues<ObservablePoint> CorelationSignalChartValues = new ChartValues<ObservablePoint>();
 
@@ -42,10 +48,7 @@ namespace siig
 
             CurrentControl = Controls.First();
 
-            SettingsBlock.Content = CurrentControl;
-
-
-            DataContext = CurrentControl;
+            DataContext = this;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -67,34 +70,14 @@ namespace siig
             }
         }
 
-        private void UIElement_OnMouseEnter(object sender, MouseEventArgs e)
-        {
-            var box = sender as GroupBox;
-
-            box.Background =
-                new SolidColorBrush(
-                    (System.Windows.Media.Color) System.Windows.Media.ColorConverter.ConvertFromString("#7b1fa2"));
-        }
-
-        private void UIElement_OnMouseLeave(object sender, MouseEventArgs e)
-        {
-            var box = sender as GroupBox;
-
-            box.Background = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#8e24aa"));
-        }
-
         private void NextMethod(object sender, MouseButtonEventArgs e)
         {
             int IndexOfMethod = Controls.FindIndex(control => control == CurrentControl);
+
             if (IndexOfMethod != Controls.Count - 1)
             {
                 CurrentControl = Controls[IndexOfMethod + 1];
             }
-
-            DataContext = CurrentControl;
-            SettingsBlock.Content = CurrentControl;
-
-            PropertyChanged?.Invoke(null, null);
         }
 
         private void PreviousMethod(object sender, MouseButtonEventArgs e)
@@ -104,11 +87,6 @@ namespace siig
             {
                 CurrentControl = Controls[IndexOfMethod - 1];
             }
-
-            DataContext = CurrentControl;
-            SettingsBlock.Content = CurrentControl;
-
-            PropertyChanged?.Invoke(null, null);
         }
 
 

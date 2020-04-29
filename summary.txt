@@ -1,1 +1,9 @@
-за цей урок я дізнався про меню issues, projects, закриття issues за допомгою pull requests.
+<SolidColorBrush x:Key="ItemsBackgroundBrush" Color="#7b1fa2"/>
+    <SolidColorBrush x:Key="ItemsForegroundBrush" Color="#90a4ae"/>
+    <Color x:Key="HoverColor">#9c27b0</Color>
+    <Color x:Key="BackgroundColor">#7b1fa2</Color>
+    <SolidColorBrush x:Key="ItemsBorderBrush" Color="#ab47bc"/>
+
+    <SolidColorBrush x:Key="ErrorBrush" Color="#f44336"/>
+    <SolidColorBrush x:Key="FormBackgroundBrush" Color="#6a1b9a"/>
+    <SolidColorBrush x:Key="TextBrush" Color="AliceBlue"/>

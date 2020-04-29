@@ -19,6 +19,7 @@ using LiveCharts.Wpf;
 using siig.methods;
 using siig.models;
 using visual;
+using Xceed.Wpf.Toolkit.Core.Converters;
 
 namespace siig.Views_ViewModels
 {
@@ -37,6 +38,8 @@ namespace siig.Views_ViewModels
 
         private string OuputString = "";
 
+        public UserControl CurrentControl;
+
         public string NameOfView { get; set; } = "Convolution";
 
         public SeriesCollection Collection { get; set; }
@@ -49,8 +52,9 @@ namespace siig.Views_ViewModels
             SecondSignalChartValues = new ChartValues<ObservablePoint>();
             FinalSignalChartValues = new ChartValues<ObservablePoint>();
 
-            BindSeries();
+            CurrentControl = this;
 
+            BindSeries();
             DataContext = this;
         }
 
