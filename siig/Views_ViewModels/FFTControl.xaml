@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:siig.Views_ViewModels"
+             xmlns:xd="http:/herewego.cc"
              mc:Ignorable="d" 
             >
     <Grid>
@@ -15,15 +15,15 @@
 
         </Grid.RowDefinitions>
 
-        <GroupBox Grid.Row="0" Style="{StaticResource groupBox}">
+        <xd:MContainer Grid.Row="0" Style="{StaticResource ContainerStyle}">
             <StackPanel VerticalAlignment="Center">
                 <Label Content="Signal" Style="{StaticResource MainLabel}" FontSize="13"/>
-                <TextBox Name="SignalInput" Style="{StaticResource inputBox}" Text="example: 1;2 2;2 5;3"
+                <xd:InputBox Name="SignalInput" Style="{StaticResource inputBox}" Text="example: 1;2 2;2 5;3"
                         MouseEnter="Input_OnMouseEnter" MouseLeave="Input_OnMouseLeave"  />
             </StackPanel>
-        </GroupBox>
+        </xd:MContainer>
 
-        <GroupBox Grid.Row="1" Style="{StaticResource groupBox}">
+        <xd:MContainer Grid.Row="1" Style="{StaticResource ContainerStyle}">
             <StackPanel>
                 <Label Content="Method" Style="{StaticResource MainLabel}" FontSize="13"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -38,9 +38,9 @@
                     </RadioButton>
                 </StackPanel>
             </StackPanel>
-        </GroupBox>
+        </xd:MContainer>
 
-        <GroupBox Grid.Row="2" Style="{StaticResource groupBox}">
+        <xd:MContainer Grid.Row="2" Style="{StaticResource ContainerStyle}">
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
 
                 <Label Content="Settings" Style="{StaticResource MainLabel}" FontSize="13"/>
@@ -76,19 +76,19 @@
                 </StackPanel>
 
             </StackPanel>
-        </GroupBox>
+        </xd:MContainer>
 
-        <GroupBox Grid.Row="3" Style="{StaticResource groupBox}">
+        <xd:MContainer Grid.Row="3" Style="{StaticResource ContainerStyle}">
             <StackPanel >
                 <Label Content="Output" Style="{StaticResource MainLabel}" FontSize="13"/>
-                <TextBox Name="Output" 
+                <xd:OutputBox Name="Output" 
                          Height="50"
                          VerticalAlignment="Stretch"
                          HorizontalContentAlignment="Left"
-                         Style="{StaticResource inputBox}"
-                         Text="{Binding OutputString}"/>
+                       
+                         content="{Binding OutputString}"/>
 
             </StackPanel>
-        </GroupBox>
+        </xd:MContainer>
     </Grid>
 </UserControl>

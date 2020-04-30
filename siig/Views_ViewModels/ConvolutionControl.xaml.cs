@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CustomControls;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
@@ -128,55 +129,7 @@ namespace siig.Views_ViewModels
 
                 BindCharts();
 
-                OutputSignal.Text = OuputString;
-            }
-        }
-
-        private void Input_OnMouseEnter(object sender, MouseEventArgs e)
-        {
-            var Box = sender as TextBox;
-
-            if (Box.Text == "example: 1;2 2;2 5;3")
-            {
-                Box.Text = "";
-            }
-
-            Box.BorderThickness = new Thickness(1);
-            Box.Foreground = Brushes.AliceBlue;
-        }
-
-        private void Input_OnMouseLeave(object sender, MouseEventArgs e)
-        {
-            var Box = sender as TextBox;
-            var TemporaryString = Box.Text;
-            if (String.IsNullOrEmpty(TemporaryString))
-            {
-                Box.BorderThickness = new Thickness(0);
-                Box.Text = "example: 1;2 2;2 5;3";
-                Box.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#90a4ae"));
-            }
-            else
-            {
-                if (inputParser.isCorrect(TemporaryString))
-                {
-                    Box.BorderThickness = new Thickness(0);
-                    if (Box == InputFirstSignal)
-                    {
-                        FirstSignal = DictionaryWorker.Sort(inputParser.Parse(TemporaryString));
-                        Box.Text = DictionaryWorker.ToString(FirstSignal);
-                    }
-                    else
-                    {
-                        SecondSignal = DictionaryWorker.Sort(inputParser.Parse(TemporaryString));
-                        Box.Text = DictionaryWorker.ToString(SecondSignal);
-
-                    }
-                }
-                else
-                {
-                    Box.BorderThickness = new Thickness(1);
-                    Box.BorderBrush = Brushes.Red;
-                }
+                OutputSignal.content = OuputString;
             }
         }
 

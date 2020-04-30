@@ -6,13 +6,13 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="styles/ControlWindow.xaml"/>
                 <ResourceDictionary Source="styles/RichTextBox.xaml"/>
                 <ResourceDictionary Source="styles/brushes.xaml"/>
                 <ResourceDictionary Source="styles/labels.xaml"/>
                 <ResourceDictionary Source="styles/combobox.xaml"/>
                 <ResourceDictionary Source="styles/input.xaml"/>
-                <ResourceDictionary Source="styles/groupBox.xaml"/>
+                <ResourceDictionary Source="styles/ContainerStyle.xaml"/>
+                <ResourceDictionary Source="styles/ButtonStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

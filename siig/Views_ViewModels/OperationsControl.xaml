@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:siig.Views_ViewModels"
+             xmlns:xd="http:/herewego.cc"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" >
     <Grid>
@@ -14,24 +14,24 @@
             <RowDefinition Height="2.5*" Name="FourthRow"/>
         </Grid.RowDefinitions>
         <!--method-->
-        <GroupBox Grid.Row="0" Style="{StaticResource groupBox}">
+        <xd:MContainer Grid.Row="0" Style="{StaticResource ContainerStyle}">
             <StackPanel>
                 <Label Style="{StaticResource MainLabel}" Content="Choose Method"/>
                 <ComboBox Style="{StaticResource ComboBoxFlatStyle}" ItemsSource="{Binding MethodsList}" Width="200" Height="20" SelectedIndex="0"
                           HorizontalContentAlignment="Center" SelectionChanged="Selector_OnSelectionChanged"/>
             </StackPanel>
-        </GroupBox>
+        </xd:MContainer>
         <!--first input-->
-        <GroupBox Grid.Row="1" Style="{StaticResource groupBox}" Name="Box">
+        <xd:MContainer Grid.Row="1" Style="{StaticResource ContainerStyle}" Name="Box">
             <StackPanel>
                 <Label Style="{StaticResource MainLabel}" Content="Input Signal"/>
-                <TextBox Name="InputFirstSignal" Style="{StaticResource inputBox}" BorderThickness="0" 
+                <xd:InputBox Name="InputFirstSignal" Style="{StaticResource inputBox}" BorderThickness="0" 
                          HorizontalAlignment="Center" VerticalAlignment="Center" Text="example: 1;2 2;2 5;3" FontSize="10" 
                          MouseEnter="Input_OnMouseEnter" MouseLeave="Input_OnMouseLeave"/>
             </StackPanel>
-        </GroupBox>
+        </xd:MContainer>
         <!--settings-->
-        <GroupBox Grid.Row="2" Style="{StaticResource groupBox}" Name="SettingsBlock">
+        <xd:MContainer Grid.Row="2" Style="{StaticResource ContainerStyle}" Name="SettingsBlock">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3.5*"/>
@@ -47,7 +47,7 @@
                 <!--factor-->
                 <StackPanel x:Name="FactorStackPanel" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top">
                     <Label Content="Factor"  Style="{StaticResource MainLabel}"  FontSize="13"/>
-                    <xctk:IntegerUpDown Background="{StaticResource ItemsBackgroundBrush}" BorderThickness="0"  Margin="10,0" Foreground="{StaticResource TextBrush}"
+                    <xctk:IntegerUpDown Background="{StaticResource ContainerBackgroundBrush}" BorderThickness="0"  Margin="10,0" Foreground="{StaticResource TextBrush}"
                                         Minimum="1" Name="FactorUpDown" Value="1"
                                         ValueChanged="FactorUpDown_OnValueChanged"/>
                 </StackPanel>
@@ -65,24 +65,25 @@
                     </StackPanel>
                 </StackPanel>
             </Grid>
-        </GroupBox>
+        </xd:MContainer>
         <!--output-->
-        <GroupBox Name="OutputBlock" Grid.Row="3" Style="{StaticResource groupBox}">
+        <xd:MContainer Name="OutputBlock" Grid.Row="3" Style="{StaticResource ContainerStyle}">
             <StackPanel>
                 <Label Style="{StaticResource MainLabel}" Content="Output Signal"/>
-                <TextBox Name="OutputSignal" Style="{StaticResource inputBox}" IsReadOnly="True" BorderThickness="0" 
-                         HorizontalAlignment="Center" VerticalAlignment="Center" Text="index;garmonic" FontSize="10"
+                <xd:OutputBox Name="OutputSignal"  BorderThickness="0" 
+                         HorizontalAlignment="Center" VerticalAlignment="Center" content="index;garmonic" FontSize="10"
                          MouseEnter="OutputSignal_OnMouseEnter"/>
             </StackPanel>
-        </GroupBox>
+        </xd:MContainer>
+
         <!--second signal-->
-        <GroupBox Name="SecondSignalBlock" Grid.Row="2" Style="{StaticResource groupBox}" Visibility="Hidden" Margin="10,15">
+        <xd:MContainer Name="SecondSignalBlock" Grid.Row="2" Style="{StaticResource ContainerStyle}" Visibility="Hidden" Margin="10,15">
             <StackPanel>
                 <Label Style="{StaticResource MainLabel}" Content="Input Second Signal"/>
-                <TextBox Name="InputSecondSignal" Style="{StaticResource inputBox}" BorderThickness="0" 
+                <xd:InputBox Name="InputSecondSignal" BorderThickness="0" 
                          HorizontalAlignment="Center" VerticalAlignment="Center" Text="example: 1;2 2;2 5;3" FontSize="10" 
                          MouseEnter="Input_OnMouseEnter"  MouseLeave="Input_OnMouseLeave"/>
             </StackPanel>
-        </GroupBox>
+        </xd:MContainer>
     </Grid>
 </UserControl>

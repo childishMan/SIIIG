@@ -2,8 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:siig.styles">
     <Style x:Name="RichTextBox" TargetType="RichTextBox">
-        <Setter Property="Background" Value="{StaticResource ItemsBackgroundBrush}"/>
-        <Setter Property="Foreground" Value="{StaticResource ItemsForegroundBrush}"/>
+        <Setter Property="Background" Value="{StaticResource ContainerBackgroundBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
         <Setter Property="FontFamily" Value="/font/#Lobster"/>
         <Setter Property="IsEnabled" Value="False"/>
     </Style>

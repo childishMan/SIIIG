@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -9,6 +10,7 @@ using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using LiveCharts.Wpf.Charts.Base;
+using siig.Annotations;
 using siig.methods;
 using siig.Views_ViewModels;
 using Xceed.Wpf.Toolkit.Core.Converters;
@@ -35,8 +37,8 @@ namespace siig
             get { return _CurrentControl; }
             set
             {
-                PropertyChanged += delegate { };
                 _CurrentControl = value;
+                OnPropertyChanged();
             }
         }
 
@@ -51,16 +53,13 @@ namespace siig
             DataContext = this;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
         private void Proceed_OnClick(object sender, RoutedEventArgs e)
         {
             var MethodControl = CurrentControl as IMethod;
 
-            if (MethodControl.IsAllChecked())
+            if ( MethodControl!=null && MethodControl.IsAllChecked())
             {
                 MethodControl.Proceed();
-                PropertyChanged?.Invoke(null, null);
             }
 
             else
@@ -93,6 +92,14 @@ namespace siig
         private void PartaAme_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             MessageBox.Show("Project by Marian Hupalo", "About", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 

@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
+using CustomControls;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
@@ -128,7 +129,7 @@ namespace siig.Views_ViewModels
                 OuputString += $"{item.Key};{item.Value:f1} ";
             }
 
-            OutputSignal.Text = OuputString;
+            OutputSignal.content = OuputString;
         }
 
 
@@ -180,7 +181,7 @@ namespace siig.Views_ViewModels
 
         private void Input_OnMouseLeave(object sender, MouseEventArgs e)
         {
-            var Box = sender as TextBox;
+            var Box = sender as InputBox;
             var TemporaryString = Box.Text;
             if (String.IsNullOrEmpty(TemporaryString))
             {

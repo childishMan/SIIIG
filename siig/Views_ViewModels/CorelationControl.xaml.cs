@@ -7,6 +7,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
+using CustomControls;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
@@ -113,7 +114,7 @@ namespace siig.Views_ViewModels
 
         private void Input_OnMouseLeave(object sender, MouseEventArgs e)
         {
-            var Box = sender as TextBox;
+            var Box = sender as InputBox;
             var TempString = Box.Text;
             if (String.IsNullOrEmpty(TempString))
             {
@@ -193,7 +194,7 @@ namespace siig.Views_ViewModels
                     OutputString = "";
                     foreach (var item in FinalSignal) OutputString += $"{item:F3} ";
 
-                    OutputSignal.Text = OutputString;
+                    OutputSignal.content = OutputString;
 
                     foreach (var item in FinalSignal) CorelationSignalChartValues.Add(new ObservableValue(item));
 
