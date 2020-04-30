@@ -197,8 +197,8 @@
     <Resource Include="icons\prev.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CControl\CControl\CustomControls.csproj">
-      <Project>{2A7724F6-0B20-4E79-B6EF-C5333901F689}</Project>
+    <ProjectReference Include="CControl\CControl\CustomControls.csproj">
+      <Project>{2a7724f6-0b20-4e79-b6ef-c5333901f689}</Project>
       <Name>CustomControls</Name>
     </ProjectReference>
   </ItemGroup>
