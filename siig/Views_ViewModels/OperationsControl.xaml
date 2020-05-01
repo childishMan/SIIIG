@@ -47,7 +47,7 @@
                 <!--factor-->
                 <StackPanel x:Name="FactorStackPanel" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top">
                     <Label Content="Factor"  Style="{StaticResource MainLabel}"  FontSize="13"/>
-                    <xctk:IntegerUpDown Background="{StaticResource ContainerBackgroundBrush}" BorderThickness="0"  Margin="10,0" Foreground="{StaticResource TextBrush}"
+                    <xctk:IntegerUpDown Background="{StaticResource ItemsBackgroundBrush}" BorderThickness="0"  Margin="10,0" Foreground="{StaticResource TextBrush}"
                                         Minimum="1" Name="FactorUpDown" Value="1"
                                         ValueChanged="FactorUpDown_OnValueChanged"/>
                 </StackPanel>
@@ -70,8 +70,8 @@
         <xd:MContainer Name="OutputBlock" Grid.Row="3" Style="{StaticResource ContainerStyle}">
             <StackPanel>
                 <Label Style="{StaticResource MainLabel}" Content="Output Signal"/>
-                <xd:OutputBox Name="OutputSignal"  BorderThickness="0" 
-                         HorizontalAlignment="Center" VerticalAlignment="Center" Text="index;garmonic" FontSize="10"
+                <xd:OutputBox Name="OutputSignal" Style="{StaticResource OutputboxStyle}"
+                              Text="index;garmonic"
                          MouseEnter="OutputSignal_OnMouseEnter"/>
             </StackPanel>
         </xd:MContainer>

@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Icon="../icons/icon.png"
         xmlns:xd="clr-namespace:CustomControls;assembly=CustomControls"
-        Title="SIIIG" Height="450" Width="850" ResizeMode="CanMinimize">
+        Title="SIIIG" Height="550" Width="1000" ResizeMode="CanMinimize">
 
     <Window.Resources>
         <Style x:Key="groupBox" TargetType="{x:Type GroupBox}">
@@ -74,7 +74,7 @@
         <ContentControl Grid.Row="1" Grid.Column="1" Content="{Binding CurrentControl,UpdateSourceTrigger=PropertyChanged}"/>
 
         <xd:tButton Grid.Row="2" Grid.Column="1" Style="{StaticResource ButtonStyle}"
-                    Click="Proceed_OnClick" Text="Welcome"
+                    Click="Proceed_OnClick" Text="Proceed"
                     Margin="10"/>
     </Grid>
 </Window>

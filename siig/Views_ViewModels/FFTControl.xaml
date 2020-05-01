@@ -83,8 +83,7 @@
                 <Label Content="Output" Style="{StaticResource MainLabel}" FontSize="13"/>
                 <xd:OutputBox Name="Output" 
                          Height="50"
-                         VerticalAlignment="Stretch"
-                         HorizontalContentAlignment="Left"
+                         Style="{StaticResource OutputboxStyle}"
                        
                          Text="{Binding OutputString}"/>
 

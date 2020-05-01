@@ -5,7 +5,7 @@
     <Style x:Key="ContainerStyle" TargetType="hr:MContainer">
         <Setter Property="Background" Value="{StaticResource ContainerBackgroundBrush}" />
         <Setter Property="BorderBrush" Value="{StaticResource ContainerBorderBrush}" />
-        <Setter Property="Margin" Value="10" />
+        <Setter Property="Margin" Value="10,5" />
         <Setter Property="Radius" Value="5"/>
         <Setter Property="BorderThickness" Value="3,1,1,3"/>
     </Style>

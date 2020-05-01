@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,6 +13,7 @@ using CustomControls;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
+using siig.Annotations;
 using siig.models;
 using siig.methods;
 using visual;
@@ -20,7 +23,7 @@ namespace siig.Views_ViewModels
     /// <summary>
     /// Interaction logic for CorelationControl.xaml
     /// </summary>
-    public partial class CorelationControl : UserControl, IMethod
+    public partial class CorelationControl : UserControl, IMethod,INotifyPropertyChanged
     {
         private bool IsCrossCorelation = true;
         private bool Normalize = false;
@@ -30,6 +33,18 @@ namespace siig.Views_ViewModels
         private List<double> FinalSignal = new List<double>();
 
         private string OutputString = "";
+
+        private string _output;
+
+        public string Output
+        {
+            get { return _output;}
+            set
+            {
+                _output = value;
+                OnPropertyChanged();
+            }
+        }
 
         public string NameOfView { get; set; } = "Corelation";
 
@@ -46,6 +61,8 @@ namespace siig.Views_ViewModels
             CorelationSignalChartValues = new ChartValues<ObservableValue>();
 
             BindSeries();
+
+            Output = "s\ns\ns\n gasf\n";
 
             DataContext = this;
         }
@@ -204,5 +221,12 @@ namespace siig.Views_ViewModels
             }
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }
