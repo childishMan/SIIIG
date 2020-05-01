@@ -5,37 +5,42 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:xd="http:/herewego.cc"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             d:DesignHeight="400" d:DesignWidth="300"
              mc:Ignorable="d" >
-    <Grid>
+    <Grid Width="Auto" Height="Auto">
         <Grid.RowDefinitions>
-            <RowDefinition Height="2.25*"/>
-            <RowDefinition Height="2.25*"/>
-            <RowDefinition Height="3*" Name="ThirdRow"/>
-            <RowDefinition Height="2.5*" Name="FourthRow"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" Name="ThirdRow"/>
+            <RowDefinition Height="*" Name="FourthRow"/>
         </Grid.RowDefinitions>
+
         <!--method-->
         <xd:MContainer Grid.Row="0" Style="{StaticResource ContainerStyle}">
-            <StackPanel>
+            <StackPanel Margin="10,5">
                 <Label Style="{StaticResource MainLabel}" Content="Choose Method"/>
-                <ComboBox Style="{StaticResource ComboBoxFlatStyle}" ItemsSource="{Binding MethodsList}" Width="200" Height="20" SelectedIndex="0"
-                          HorizontalContentAlignment="Center" SelectionChanged="Selector_OnSelectionChanged"/>
+                <ComboBox Style="{StaticResource ComboBoxFlatStyle}" ItemsSource="{Binding MethodsList}" 
+                          Width="auto" Height="auto" 
+                          SelectedIndex="0" SelectionChanged="Selector_OnSelectionChanged"
+                          HorizontalContentAlignment="Center" />
             </StackPanel>
         </xd:MContainer>
         <!--first input-->
         <xd:MContainer Grid.Row="1" Style="{StaticResource ContainerStyle}" Name="Box">
-            <StackPanel>
+            <StackPanel Margin="10,5">
                 <Label Style="{StaticResource MainLabel}" Content="Input Signal"/>
-                <xd:InputBox Name="InputFirstSignal" Style="{StaticResource inputBox}" BorderThickness="0" 
-                         HorizontalAlignment="Center" VerticalAlignment="Center" Text="example: 1;2 2;2 5;3" FontSize="10" 
+                <xd:InputBox Name="InputFirstSignal" Style="{StaticResource inputBox}" 
+                         Text="example: 1;2 2;2 5;3" 
                          MouseEnter="Input_OnMouseEnter" MouseLeave="Input_OnMouseLeave"/>
             </StackPanel>
         </xd:MContainer>
         <!--settings-->
         <xd:MContainer Grid.Row="2" Style="{StaticResource ContainerStyle}" Name="SettingsBlock">
-            <Grid>
+            <Grid Margin="10,5">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="3.5*"/>
-                    <RowDefinition Height="6.5*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -45,17 +50,16 @@
                 <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Settings" Style="{StaticResource MainLabel}" FontSize="15"/>
 
                 <!--factor-->
-                <StackPanel x:Name="FactorStackPanel" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top">
-                    <Label Content="Factor"  Style="{StaticResource MainLabel}"  FontSize="13"/>
-                    <xctk:IntegerUpDown Background="{StaticResource ItemsBackgroundBrush}" BorderThickness="0"  Margin="10,0" Foreground="{StaticResource TextBrush}"
+                <Label Grid.Row="1" Grid.Column="0" Content="Factor"  Style="{StaticResource MainLabel}"  FontSize="13"/>
+
+                <xctk:IntegerUpDown Grid.Row="2" Grid.Column="0" Background="{StaticResource ItemsBackgroundBrush}" BorderThickness="0"  Margin="10,0" Foreground="{StaticResource TextBrush}"
                                         Minimum="1" Name="FactorUpDown" Value="1"
                                         ValueChanged="FactorUpDown_OnValueChanged"/>
-                </StackPanel>
 
                 <!--expand-->
-                <StackPanel Name="ExpandStackPanel" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
-                    <Label Content="Expand" Style="{StaticResource MainLabel}" FontSize="13"/>
-                    <StackPanel Orientation="Horizontal">
+                <Label Grid.Row="1" Grid.Column="1"
+                    Content="Expand" Style="{StaticResource MainLabel}" FontSize="13"/>
+                    <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
                         <RadioButton Name="ExpandRadioButton" VerticalContentAlignment="Center" IsChecked="True" Checked="RadioButton_OnChecked">
                             <Label Content="expand" Style="{StaticResource MainLabel}" FontSize="9"/>
                         </RadioButton>
@@ -63,17 +67,22 @@
                             <Label Content="squeeze" Style="{StaticResource MainLabel}" FontSize="9"/>
                         </RadioButton>
                     </StackPanel>
-                </StackPanel>
             </Grid>
         </xd:MContainer>
         <!--output-->
         <xd:MContainer Name="OutputBlock" Grid.Row="3" Style="{StaticResource ContainerStyle}">
-            <StackPanel>
-                <Label Style="{StaticResource MainLabel}" Content="Output Signal"/>
-                <xd:OutputBox Name="OutputSignal" Style="{StaticResource OutputboxStyle}"
+            <Grid Margin="10,5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Style="{StaticResource MainLabel}" Content="Output Signal"/>
+
+                <xd:OutputBox Grid.Row="1" Name="OutputSignal" Style="{StaticResource OutputboxStyle}"
+                              VerticalContentAlignment="Top"
                               Text="index;garmonic"
-                         MouseEnter="OutputSignal_OnMouseEnter"/>
-            </StackPanel>
+                              MouseEnter="OutputSignal_OnMouseEnter"/>
+            </Grid>
         </xd:MContainer>
 
         <!--second signal-->

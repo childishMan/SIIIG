@@ -277,7 +277,7 @@ namespace siig.Views_ViewModels
 
                         SettingsBlock.Visibility = Visibility.Visible;
                         SecondSignalBlock.Visibility = Visibility.Hidden;
-                        ExpandStackPanel.Visibility = Visibility.Hidden;
+                      //  ExpandStackPanel.Visibility = Visibility.Hidden;
 
                         FactorUpDown.Minimum = 1;
                         FactorUpDown.Value = 1;
@@ -285,7 +285,7 @@ namespace siig.Views_ViewModels
 
                         SwapSize(true);
 
-                        Grid.SetColumnSpan(FactorStackPanel, 2);
+                       // Grid.SetColumnSpan(FactorStackPanel, 2);
                         Grid.SetRow(OutputBlock, 3);
 
                         break;
@@ -308,7 +308,7 @@ namespace siig.Views_ViewModels
 
                         SettingsBlock.Visibility = Visibility.Visible;
                         SecondSignalBlock.Visibility = Visibility.Hidden;
-                        ExpandStackPanel.Visibility = Visibility.Visible;
+                      //  ExpandStackPanel.Visibility = Visibility.Visible;
 
                         FactorUpDown.Minimum = 1;
                         FactorUpDown.Value = 1;
@@ -317,7 +317,7 @@ namespace siig.Views_ViewModels
                         SwapSize(true);
 
                         Grid.SetRow(OutputBlock, 3);
-                        Grid.SetColumnSpan(FactorStackPanel, 1);
+                       // Grid.SetColumnSpan(FactorStackPanel, 1);
                         break;
                     }
 
@@ -347,7 +347,7 @@ namespace siig.Views_ViewModels
 
                         SecondSignalBlock.Visibility = Visibility.Hidden;
                         SettingsBlock.Visibility = Visibility.Visible;
-                        ExpandStackPanel.Visibility = Visibility.Hidden;
+                        //ExpandStackPanel.Visibility = Visibility.Hidden;
 
                         FactorUpDown.Minimum = -20;
                         FactorUpDown.Value = 1;

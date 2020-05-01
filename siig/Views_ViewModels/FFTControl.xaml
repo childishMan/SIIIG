@@ -4,19 +4,20 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:xd="http:/herewego.cc"
+             d:DesignHeight="400" d:DesignWidth="300"
              mc:Ignorable="d" 
             >
-    <Grid>
+    <Grid Width="auto" Height="auto">
         <Grid.RowDefinitions>
-            <RowDefinition Height="2.5*"/>
-            <RowDefinition Height="2.2*"/>
-            <RowDefinition Height="2.8*"/>
-            <RowDefinition Height="3.5*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
 
         </Grid.RowDefinitions>
 
         <xd:MContainer Grid.Row="0" Style="{StaticResource ContainerStyle}">
-            <StackPanel VerticalAlignment="Center">
+            <StackPanel VerticalAlignment="Center" Margin="10,5">
                 <Label Content="Signal" Style="{StaticResource MainLabel}" FontSize="13"/>
                 <xd:InputBox Name="SignalInput" Style="{StaticResource inputBox}" Text="example: 1;2 2;2 5;3"
                         MouseEnter="Input_OnMouseEnter" MouseLeave="Input_OnMouseLeave"  />
@@ -26,6 +27,7 @@
         <xd:MContainer Grid.Row="1" Style="{StaticResource ContainerStyle}">
             <StackPanel>
                 <Label Content="Method" Style="{StaticResource MainLabel}" FontSize="13"/>
+
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <RadioButton Name="FastFourierButton" VerticalContentAlignment="Center" IsChecked="True"
                                  Checked="Method_OnChecked">
@@ -79,15 +81,18 @@
         </xd:MContainer>
 
         <xd:MContainer Grid.Row="3" Style="{StaticResource ContainerStyle}">
-            <StackPanel >
-                <Label Content="Output" Style="{StaticResource MainLabel}" FontSize="13"/>
+            <Grid Margin="10,5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="Output" Style="{StaticResource MainLabel}" FontSize="13"/>
                 <xd:OutputBox Name="Output" 
-                         Height="50"
-                         Style="{StaticResource OutputboxStyle}"
-                       
-                         Text="{Binding OutputString}"/>
-
-            </StackPanel>
+                              Grid.Row="1"
+                              VerticalContentAlignment="Top"
+                              Style="{StaticResource OutputboxStyle}"
+                              Text="{Binding OutputString}" />
+            </Grid>
         </xd:MContainer>
     </Grid>
 </UserControl>

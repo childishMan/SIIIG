@@ -10,14 +10,6 @@
         xmlns:xd="clr-namespace:CustomControls;assembly=CustomControls"
         Title="SIIIG" Height="550" Width="1000" ResizeMode="CanMinimize">
 
-    <Window.Resources>
-        <Style x:Key="groupBox" TargetType="{x:Type GroupBox}">
-            <Setter Property="Background" Value="{StaticResource ContainerBackgroundBrush}"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="BorderBrush" Value="{StaticResource ItemsBorderBrush}"/>
-            <Setter Property="Margin" Value="10"/>
-        </Style>
-    </Window.Resources>
     <Grid Background="{StaticResource FormBackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="1.5*"/>
@@ -31,6 +23,7 @@
 
         <!--image stack-->
         <xd:MContainer Grid.Row="0" Grid.Column="1"
+                       Margin="10"
                        Style="{StaticResource ContainerStyle}">
             <Grid VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
@@ -39,42 +32,62 @@
                     <ColumnDefinition Width="1.5*"/>
                 </Grid.ColumnDefinitions>
 
-                <Image Grid.Column="0" Source="../icons/prev.png" VerticalAlignment="Center" MouseLeftButtonUp="PreviousMethod" />
+                <Path Grid.Column="0" StrokeThickness="4"
+                          Stroke="{StaticResource TextBrush}" Fill="Transparent" 
+                          Data="M20,5 L10,15 L20,25"  MouseLeftButtonDown="PreviousMethod"/>
+
                 <Label Grid.Column="1" Style="{StaticResource MainLabel}"  x:Name="partaAme"
                        VerticalContentAlignment="Center"
-                       Content="{Binding CurrentControl.NameOfView}"
+                       Content="{Binding CurrentControl.NameOfView}" FontSize="17"
                        MouseDoubleClick="PartaAme_OnMouseDoubleClick"/>
 
-                <Image Grid.Column="2" Source="../icons/next.png" MouseLeftButtonUp="NextMethod" />
+                <Path Grid.Column="2" StrokeThickness="4"
+                      Stroke="{StaticResource TextBrush}" Fill="Transparent"
+                      Data="M20,5 L30,15 L20,25"
+                      MouseLeftButtonDown="NextMethod"/>
             </Grid>
 
         </xd:MContainer>
 
         <!--chart-->
-        <xd:MContainer Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Style="{StaticResource ContainerStyle}" Grid.ColumnSpan="1" >
-            <lvc:CartesianChart x:Name="chart" Series="{Binding CurrentControl.Collection}" >
+        <xd:MContainer Grid.Row="0" Grid.Column="0" Grid.RowSpan="3"
+                       Style="{StaticResource ContainerStyle}" 
+                       Margin="10" >
+            <lvc:CartesianChart x:Name="chart" Series="{Binding CurrentControl.Collection}">
                 <!-- axes -->
+
                 <lvc:CartesianChart.AxisX>
-                    <lvc:Axis Title="X" Foreground="AliceBlue" Position="LeftBottom">
+                    <lvc:Axis Title="X" FontFamily="font/#Lobster" Foreground="{StaticResource TextBrush}" Position="LeftBottom">
                         <lvc:Axis.Sections>
-                            <lvc:AxisSection Value="0"  Stroke="Red" StrokeThickness="2"/>
+                            <lvc:AxisSection Name="sect" Value="0"  Stroke="{StaticResource ContainerBorderBrush}" StrokeThickness="4"/>
                         </lvc:Axis.Sections>
+                        <lvc:Axis.Separator>
+                            <lvc:Separator Stroke="{StaticResource TextBrush}"/>
+                        </lvc:Axis.Separator>
                     </lvc:Axis>
                 </lvc:CartesianChart.AxisX>
                 <lvc:CartesianChart.AxisY>
-                    <lvc:Axis Title="Y" Foreground="AliceBlue" Position="LeftBottom">
+                    <lvc:Axis Title="Y" FontFamily="font/#Lobster" Foreground="{StaticResource TextBrush}" Position="LeftBottom">
                         <lvc:Axis.Sections>
-                            <lvc:AxisSection Value="0" Stroke="Red" StrokeThickness="2"/>
+                            <lvc:AxisSection Value="0" Stroke="{StaticResource ContainerBorderBrush}" StrokeThickness="4"/>
                         </lvc:Axis.Sections>
+                        <lvc:Axis.Separator>
+                            <lvc:Separator Stroke="{StaticResource TextBrush}"/>
+                        </lvc:Axis.Separator>
                     </lvc:Axis>
                 </lvc:CartesianChart.AxisY>
             </lvc:CartesianChart>
         </xd:MContainer>
 
-        <ContentControl Grid.Row="1" Grid.Column="1" Content="{Binding CurrentControl,UpdateSourceTrigger=PropertyChanged}"/>
+        <!--usercontrol loader-->
+        <ContentControl Grid.Row="1" Grid.Column="1" 
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
+                        Content="{Binding CurrentControl,UpdateSourceTrigger=PropertyChanged}"/>
 
         <xd:tButton Grid.Row="2" Grid.Column="1" Style="{StaticResource ButtonStyle}"
                     Click="Proceed_OnClick" Text="Proceed"
+                    FontSize="17"
                     Margin="10"/>
     </Grid>
 </Window>

@@ -6,7 +6,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ColorSchemes/DeepPurpleBrushes.xaml"/>
+                <ResourceDictionary Source="ColorSchemes/YellowBrushes.xaml"/>
 
                 <ResourceDictionary Source="styles/OutputBoxStyle.xaml"/>
                 <ResourceDictionary Source="styles/labels.xaml"/>

@@ -108,7 +108,19 @@
     <Compile Include="Views_ViewModels\OperationsControl.xaml.cs">
       <DependentUpon>OperationsControl.xaml</DependentUpon>
     </Compile>
-    <Page Include="ColorSchemes\DeepPurpleBrushes.xaml">
+    <Page Include="ColorSchemes\GreenBrushes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ColorSchemes\PurpleBrushes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ColorSchemes\RedBrushes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ColorSchemes\YellowBrushes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

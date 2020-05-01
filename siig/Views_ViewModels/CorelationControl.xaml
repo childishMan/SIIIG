@@ -3,9 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:xd="http:/herewego.cc" d:DesignHeight="400" d:DesignWidth="255"
+             xmlns:xd="http:/herewego.cc"
+             d:DesignHeight="400" d:DesignWidth="300"
              mc:Ignorable="d">
-    <Grid>
+    <Grid Width="Auto" Height="Auto">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -15,7 +16,7 @@
 
         <xd:MContainer Grid.Row="0"
                        Style="{StaticResource ContainerStyle}" >
-            <Grid>
+            <Grid Margin="15,0,15,5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="5*" />
@@ -31,11 +32,11 @@
                         Content="Settings" FontSize="13"
                         Style="{StaticResource MainLabel}" />
 
-                <RadioButton Grid.Row="1" Grid.Column="0"
+                <RadioButton Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left"
                              x:Name="CrossCorelate"
-                             VerticalContentAlignment="Center" HorizontalAlignment="Left"
+                             VerticalContentAlignment="Center" 
                              IsChecked="True" Checked="MethodButtonFired">
-                    <Label Content="Cross-corelation" FontSize="9" 
+                    <Label Content="Cross-corelation" FontSize="10" 
                            Style="{StaticResource MainLabel}"/>
                 </RadioButton>
 
@@ -43,13 +44,13 @@
                              x:Name="AutoCorelate"
                              VerticalContentAlignment="Center" HorizontalAlignment="Left"
                              Checked="MethodButtonFired">
-                    <Label Content="Auto-corelation" Style="{StaticResource MainLabel}" FontSize="9" />
+                    <Label Content="Auto-corelation" Style="{StaticResource MainLabel}" FontSize="10" />
                 </RadioButton>
 
                 <CheckBox Grid.Row="1" Grid.RowSpan="2" Grid.Column="1"
                           VerticalContentAlignment="Center"
                           Click="NormalizeCheckChanged">
-                    <Label Content="Normalize" Style="{StaticResource MainLabel}" FontSize="9" />
+                    <Label Content="Normalize" Style="{StaticResource MainLabel}" FontSize="10" />
                 </CheckBox>
             </Grid>
         </xd:MContainer>
@@ -57,29 +58,27 @@
         <xd:MContainer Grid.Row="1" 
                        Style="{StaticResource ContainerStyle}" >
 
-            <StackPanel>
+            <StackPanel Margin="15,0,15,5">
                 <Label Style="{StaticResource MainLabel}"
                        Content="Input Signal" FontSize="13" />
                 <xd:InputBox Name="InputFirstSignal" Style="{StaticResource inputBox}"
-                             Placeholder="example: 1;2 2;2 5;3"
-                             FontSize="10" />
+                             Placeholder="example: 1;2 2;2 5;3" FontSize="10"/>
             </StackPanel>
         </xd:MContainer>
 
         <xd:MContainer Grid.Row="2" Name="SecondSignalBlock"
                        Style="{StaticResource ContainerStyle}" >
-            <StackPanel>
+            <StackPanel Margin="15,0,15,5">
                 <Label Style="{StaticResource MainLabel}"
                        Content="Second Signal" FontSize="13" />
                 <xd:InputBox Name="InputSecondSignal" Style="{StaticResource inputBox}"
-                             Placeholder="example: 1;2 2;2 5;3"
-                             FontSize="10" />
+                             Placeholder="example: 1;2 2;2 5;3" FontSize="10" />
             </StackPanel>
         </xd:MContainer>
 
         <xd:MContainer Name="OutputBlock" Grid.Row="3" 
                        Style="{StaticResource ContainerStyle}" >
-            <Grid>
+            <Grid Margin="15,0,15,5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -89,7 +88,8 @@
                        Content="Output Signal" FontSize="13" />
                 <xd:OutputBox Name="OutputSignal" Grid.Row="1"
                               Text="{Binding Output,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" FontSize="10"
-                              Style="{StaticResource OutputboxStyle}" Height="Auto" Margin="10,10.4,10.8,9.8" />
+                              Style="{StaticResource OutputboxStyle}" 
+                              VerticalContentAlignment="Top"/>
             </Grid>
         </xd:MContainer>
     </Grid>

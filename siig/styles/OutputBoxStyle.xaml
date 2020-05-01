@@ -8,8 +8,11 @@
         <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
         <Setter Property="BorderBrush" Value="{StaticResource ItemsBorderBrush}"/>
         <Setter Property="Background" Value="{StaticResource ItemsBackgroundBrush}"/>
-        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderThickness" Value="2"/>
         <Setter Property="Padding" Value="5,0"/>
+        <Setter Property="Height" Value="Auto"/>
+        <Setter Property="Width" Value="Auto"/>
+        <Setter Property="Padding" Value="5"/>
     </Style>
     
 </ResourceDictionary>
