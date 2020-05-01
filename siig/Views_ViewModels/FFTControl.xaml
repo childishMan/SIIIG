@@ -86,7 +86,7 @@
                          VerticalAlignment="Stretch"
                          HorizontalContentAlignment="Left"
                        
-                         content="{Binding OutputString}"/>
+                         Text="{Binding OutputString}"/>
 
             </StackPanel>
         </xd:MContainer>

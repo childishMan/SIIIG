@@ -71,7 +71,7 @@
             <StackPanel>
                 <Label Style="{StaticResource MainLabel}" Content="Output Signal"/>
                 <xd:OutputBox Name="OutputSignal"  BorderThickness="0" 
-                         HorizontalAlignment="Center" VerticalAlignment="Center" content="index;garmonic" FontSize="10"
+                         HorizontalAlignment="Center" VerticalAlignment="Center" Text="index;garmonic" FontSize="10"
                          MouseEnter="OutputSignal_OnMouseEnter"/>
             </StackPanel>
         </xd:MContainer>

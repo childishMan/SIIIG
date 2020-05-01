@@ -129,7 +129,7 @@ namespace siig.Views_ViewModels
 
                 BindCharts();
 
-                OutputSignal.content = OuputString;
+                OutputSignal.Text = OuputString;
             }
         }
 

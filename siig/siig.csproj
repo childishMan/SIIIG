@@ -38,6 +38,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CustomControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\CControl\CControl\bin\Debug\CustomControls.dll</HintPath>
+    </Reference>
     <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
       <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
     </Reference>
@@ -195,12 +199,6 @@
   <ItemGroup>
     <Resource Include="icons\next.png" />
     <Resource Include="icons\prev.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="CControl\CControl\CustomControls.csproj">
-      <Project>{2a7724f6-0b20-4e79-b6ef-c5333901f689}</Project>
-      <Name>CustomControls</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -68,7 +68,7 @@ namespace siig.Views_ViewModels
         {
             InitializeComponent();
 
-            Output.content = OutputString;
+            Output.Text = OutputString;
 
 
             DataContext = this;
@@ -258,7 +258,7 @@ namespace siig.Views_ViewModels
 
                 BindSeries();
 
-                Output.content = OutputString;
+                Output.Text = OutputString;
             }
 
 

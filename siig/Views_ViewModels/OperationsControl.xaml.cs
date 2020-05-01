@@ -129,7 +129,7 @@ namespace siig.Views_ViewModels
                 OuputString += $"{item.Key};{item.Value:f1} ";
             }
 
-            OutputSignal.content = OuputString;
+            OutputSignal.Text = OuputString;
         }
 
 

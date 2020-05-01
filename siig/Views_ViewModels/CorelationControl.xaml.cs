@@ -194,7 +194,7 @@ namespace siig.Views_ViewModels
                     OutputString = "";
                     foreach (var item in FinalSignal) OutputString += $"{item:F3} ";
 
-                    OutputSignal.content = OutputString;
+                    OutputSignal.Text = OutputString;
 
                     foreach (var item in FinalSignal) CorelationSignalChartValues.Add(new ObservableValue(item));
 
