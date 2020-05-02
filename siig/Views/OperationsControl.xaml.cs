@@ -365,16 +365,6 @@ namespace siig.Views_ViewModels
 
         private void SwapSize(bool Straight)
         {
-            if (Straight)
-            {
-                ThirdRow.Height = new GridLength(3, GridUnitType.Star);
-                FourthRow.Height = new GridLength(2.5, GridUnitType.Star);
-            }
-            else
-            {
-                ThirdRow.Height = new GridLength(2.5, GridUnitType.Star);
-                FourthRow.Height = new GridLength(3, GridUnitType.Star);
-            }
         }
 
         private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)

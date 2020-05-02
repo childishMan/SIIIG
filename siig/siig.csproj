@@ -96,16 +96,16 @@
     <Compile Include="models\FourierTransform.cs" />
     <Compile Include="models\Operations.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Views_ViewModels\ConvolutionControl.xaml.cs">
+    <Compile Include="Views\ConvolutionControl.xaml.cs">
       <DependentUpon>ConvolutionControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views_ViewModels\CorelationControl.xaml.cs">
+    <Compile Include="Views\CorelationControl.xaml.cs">
       <DependentUpon>CorelationControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views_ViewModels\FFTControl.xaml.cs">
+    <Compile Include="Views\FFTControl.xaml.cs">
       <DependentUpon>FFTControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views_ViewModels\OperationsControl.xaml.cs">
+    <Compile Include="Views\OperationsControl.xaml.cs">
       <DependentUpon>OperationsControl.xaml</DependentUpon>
     </Compile>
     <Page Include="ColorSchemes\GreenBrushes.xaml">
@@ -128,7 +128,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="styles\combobox.xaml">
+    <Page Include="styles\ComboBoxStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -136,11 +136,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="styles\input.xaml">
+    <Page Include="styles\InputBoxStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="styles\labels.xaml">
+    <Page Include="styles\LabelStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -148,19 +148,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views_ViewModels\ConvolutionControl.xaml">
+    <Page Include="styles\RadioButtonLabelStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views_ViewModels\CorelationControl.xaml">
+    <Page Include="styles\StackPanelStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views_ViewModels\FFTControl.xaml">
+    <Page Include="Views\ConvolutionControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views_ViewModels\MainPage.xaml">
+    <Page Include="Views\CorelationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FFTControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -168,11 +176,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views_ViewModels\MainPage.xaml.cs">
+    <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views_ViewModels\OperationsControl.xaml">
+    <Page Include="Views\OperationsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

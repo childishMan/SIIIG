@@ -6,14 +6,13 @@
     <!--800-->
     <SolidColorBrush x:Key="ContainerBackgroundBrush" Color="#ffee58"/>
     <!--400-->
-    <SolidColorBrush x:Key="ContainerBorderBrush" Color="#f57f17"/>
+    <SolidColorBrush x:Key="ContainerBorderBrush" Color="#ffa000"/>
 
-    <Color x:Key="ContainerBorderBrushAnimFrom">#f57f17</Color>
     <Color x:Key="ContainerBorderBrushAnimTo">#ffa000</Color>
     <!--900-->
 
     <!--text-->
-    <SolidColorBrush x:Key="PlaceholderBrush" Color="#90a4ae"/>
+    <SolidColorBrush x:Key="PlaceholderBrush" Color="#424242"/>
 
     <SolidColorBrush x:Key="TextBrush" Color="#263238"/>
     <!--50-->

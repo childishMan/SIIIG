@@ -5,17 +5,11 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using LiveCharts;
 using LiveCharts.Defaults;
-using LiveCharts.Wpf;
-using LiveCharts.Wpf.Charts.Base;
 using siig.Annotations;
 using siig.methods;
 using siig.Views_ViewModels;
-using Xceed.Wpf.Toolkit.Core.Converters;
-using Color = System.Drawing.Color;
-using ColorConverter = System.Drawing.ColorConverter;
 
 namespace siig
 {
@@ -42,8 +36,6 @@ namespace siig
             }
         }
 
-        public static ChartValues<ObservablePoint> CorelationSignalChartValues = new ChartValues<ObservablePoint>();
-
         public MainWindow()
         {
             InitializeComponent();
@@ -61,7 +53,6 @@ namespace siig
             {
                 MethodControl.Proceed();
             }
-
             else
             {
                 MessageBox.Show("Enter correct data to proceed!!!", "Input data Error",
@@ -101,6 +92,7 @@ namespace siig
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
     }
 
 

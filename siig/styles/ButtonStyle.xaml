@@ -11,6 +11,7 @@
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="Radius" Value="5"/>
+        <Setter Property="Margin" Value="10,5"/>
         <Setter Property="FontSize" Value="12"/>
 
         <Style.Triggers>
@@ -18,7 +19,7 @@
                 <BeginStoryboard>
                     <Storyboard>
                         <ColorAnimation Storyboard.TargetProperty="(hw:tButton.BorderBrush).(SolidColorBrush.Color)"
-                                        To="{StaticResource ContainerBorderBrushAnimTo}" Duration="0:0:1" FillBehavior="HoldEnd"/>
+                                        To="Transparent" Duration="0:0:0.001" FillBehavior="HoldEnd"/>
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
@@ -27,7 +28,7 @@
                 <BeginStoryboard>
                     <Storyboard>
                         <ColorAnimation Storyboard.TargetProperty="(hw:tButton.BorderBrush).(SolidColorBrush.Color)"
-                                        To="{StaticResource ContainerBorderBrushAnimFrom}" Duration="0:0:0.5" FillBehavior="HoldEnd"/>
+                                        To="{StaticResource ContainerBorderBrushAnimTo}" Duration="0:0:0.005" FillBehavior="HoldEnd"/>
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>

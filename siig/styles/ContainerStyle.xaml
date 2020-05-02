@@ -3,17 +3,22 @@
                     xmlns:hr="http:/herewego.cc">
 
     <Style x:Key="ContainerStyle" TargetType="hr:MContainer">
+
         <Setter Property="Background" Value="{StaticResource ContainerBackgroundBrush}" />
         <Setter Property="BorderBrush" Value="{StaticResource ContainerBorderBrush}" />
+
         <Setter Property="Margin" Value="10,5" />
+
         <Setter Property="Radius" Value="5"/>
+
         <Setter Property="BorderThickness" Value="3,1,1,3"/>
+
         <Style.Triggers>
             <EventTrigger RoutedEvent="MouseEnter">
                 <BeginStoryboard>
                     <Storyboard>
                         <ColorAnimation Storyboard.TargetProperty="(hr:MContainer.BorderBrush).(SolidColorBrush.Color)"
-                                        To="{StaticResource ContainerBorderBrushAnimTo}" Duration="0:0:1" FillBehavior="HoldEnd"/>
+                                        To="Transparent" Duration="0:0:0.001" FillBehavior="HoldEnd"/>
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
@@ -22,10 +27,11 @@
                 <BeginStoryboard>
                     <Storyboard>
                         <ColorAnimation Storyboard.TargetProperty="(hr:MContainer.BorderBrush).(SolidColorBrush.Color)"
-                                        To="{StaticResource ContainerBorderBrushAnimFrom}" Duration="0:0:0.5" FillBehavior="HoldEnd"/>
+                                        To="{StaticResource ContainerBorderBrushAnimTo}" Duration="0:0:0.005" FillBehavior="HoldEnd"/>
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
         </Style.Triggers>
+
     </Style>
 </ResourceDictionary>

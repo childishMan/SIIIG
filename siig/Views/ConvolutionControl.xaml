@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:siig.Views_ViewModels"
              d:DesignHeight="400" d:DesignWidth="300"
              mc:Ignorable="d" >
-    <Grid Width="Auto" Height="Auto">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -15,30 +15,38 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <!--first signal input-->
         <xd:MContainer Grid.Row="0" Style="{StaticResource ContainerStyle}">
-            <StackPanel VerticalAlignment="Center" Margin="10,5">
+            <StackPanel Style="{StaticResource StackPanelStyle}">
+
                 <Label Style="{StaticResource MainLabel}" Content="Input Signal"/>
+
                 <xd:InputBox Name="InputFirstSignal" 
                              Style="{StaticResource  inputBox}"
                              Placeholder="example: 1;2 2;2 5;3"/>
             </StackPanel>
         </xd:MContainer>
 
+        <!--second signal input-->
         <xd:MContainer Grid.Row="1" Style="{StaticResource ContainerStyle}">
-            <StackPanel VerticalAlignment="Center" Margin="10,5">
+            <StackPanel Style="{StaticResource StackPanelStyle}">
+
                 <Label Style="{StaticResource MainLabel}" Content="Second Signal"/>
-                <xd:InputBox Name="InputSecondSignal" Style="{StaticResource  inputBox}" BorderThickness="0" 
+
+                <xd:InputBox Name="InputSecondSignal" 
+                             Style="{StaticResource  inputBox}"
                              Placeholder="example: 1;2 2;2 5;3"/>
             </StackPanel>
         </xd:MContainer>
 
+        <!--output-->
         <xd:MContainer Grid.Row="2" Style="{StaticResource ContainerStyle}">
-            <StackPanel VerticalAlignment="Center" Margin="10,5">
+            <StackPanel Style="{StaticResource StackPanelStyle}">
 
                 <Label Style="{StaticResource MainLabel}" Content="Output Signal"/>
-                <xd:OutputBox Name="OutputSignal"  Text="index;garmonic" 
-                              Style="{StaticResource OutputboxStyle}"
-                              MouseEnter="OutputSignal_OnMouseEnter"
+
+                <xd:OutputBox Name="OutputSignal"
+                              Style="{StaticResource OutputBoxStyle}"
                               VerticalContentAlignment="Top"/>
             </StackPanel>
         </xd:MContainer>

@@ -1,0 +1,124 @@
+﻿<UserControl x:Class="siig.Views_ViewModels.CorelationControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:xd="http:/herewego.cc"
+             d:DesignHeight="400" d:DesignWidth="300"
+             mc:Ignorable="d">
+    <Grid Width="Auto" Height="Auto">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <xd:MContainer Grid.Row="0"
+                       Style="{StaticResource ContainerStyle}">
+
+            <Grid Margin="10,5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.ColumnSpan="2"
+                       Content="Settings"
+                       Style="{StaticResource MainLabel}" />
+
+                <!--crosscorelation rb-->
+                <RadioButton Grid.Row="1" Grid.Column="0"
+                             HorizontalAlignment="Center"
+                             x:Name="CrossCorelate"
+                             VerticalContentAlignment="Center"
+                             IsChecked="True"
+                             Checked="MethodButtonFired">
+
+                    <Label Content="Cross-corelation"
+                           Style="{StaticResource RadioButtonLabelStyle}" />
+
+                </RadioButton>
+
+                <!--autocorelation rb-->
+                <RadioButton Grid.Row="2" Grid.Column="0"
+                             x:Name="AutoCorelate"
+                             VerticalContentAlignment="Center"
+                             HorizontalAlignment="Center"
+                             Checked="MethodButtonFired">
+
+                    <Label Content="Auto-corelation" Style="{StaticResource RadioButtonLabelStyle}" />
+
+                </RadioButton>
+
+                <!--normalize cb-->
+                <CheckBox Grid.Row="1" Grid.RowSpan="2" Grid.Column="1"
+                          VerticalContentAlignment="Center"
+                          HorizontalAlignment="Center"
+                          Click="NormalizeCheckChanged">
+
+                    <Label Content="Normalize" Style="{StaticResource RadioButtonLabelStyle}" />
+
+                </CheckBox>
+
+            </Grid>
+        </xd:MContainer>
+
+        <xd:MContainer Grid.Row="1"
+                       Style="{StaticResource ContainerStyle}">
+
+            <StackPanel Style="{StaticResource StackPanelStyle}">
+
+                <Label Style="{StaticResource MainLabel}"
+                       Content="Input Signal" />
+
+                <xd:InputBox Name="InputFirstSignal"
+                             Style="{StaticResource inputBox}"
+                             Placeholder="example: 1;2 2;2 5;3" />
+
+            </StackPanel>
+        </xd:MContainer>
+
+        <xd:MContainer Grid.Row="2" Name="SecondSignalBlock"
+                       Style="{StaticResource ContainerStyle}">
+
+            <StackPanel Style="{StaticResource StackPanelStyle}">
+
+                <Label Style="{StaticResource MainLabel}"
+                       Content="Second Signal" />
+
+                <xd:InputBox Name="InputSecondSignal"
+                             Style="{StaticResource inputBox}"
+                             Placeholder="example: 1;2 2;2 5;3" />
+            </StackPanel>
+        </xd:MContainer>
+
+        <xd:MContainer Name="OutputBlock" Grid.Row="3"
+                       Style="{StaticResource ContainerStyle}">
+
+            <Grid Margin="10,5">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0"
+                       Style="{StaticResource MainLabel}"
+                       Content="Output Signal" />
+
+                <xd:OutputBox Name="OutputSignal" Grid.Row="1"
+                              Text="{Binding Output,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                              Style="{StaticResource OutputBoxStyle}"
+                              VerticalContentAlignment="Top" />
+
+            </Grid>
+        </xd:MContainer>
+    </Grid>
+</UserControl>

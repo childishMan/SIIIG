@@ -2,18 +2,21 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:siig"
-             StartupUri="Views_ViewModels/MainPage.xaml">
+             StartupUri="Views/MainPage.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ColorSchemes/YellowBrushes.xaml"/>
 
                 <ResourceDictionary Source="styles/OutputBoxStyle.xaml"/>
-                <ResourceDictionary Source="styles/labels.xaml"/>
-                <ResourceDictionary Source="styles/combobox.xaml"/>
-                <ResourceDictionary Source="styles/input.xaml"/>
+                <ResourceDictionary Source="styles/LabelStyle.xaml"/>
+                <ResourceDictionary Source="styles/ComboBoxStyle.xaml"/>
+                <ResourceDictionary Source="styles/InputBoxStyle.xaml"/>
                 <ResourceDictionary Source="styles/ContainerStyle.xaml"/>
                 <ResourceDictionary Source="styles/ButtonStyle.xaml"/>
+
+                <ResourceDictionary Source="styles/RadioButtonLabelStyle.xaml"/>
+                <ResourceDictionary Source="styles/StackPanelStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
