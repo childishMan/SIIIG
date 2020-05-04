@@ -58,7 +58,7 @@
         <xd:MContainer Grid.Row="0" Grid.Column="0" Grid.RowSpan="3"
                        Style="{StaticResource ContainerStyle}" >
 
-            <lvc:CartesianChart x:Name="chart" Series="{Binding CurrentControl.Collection}">
+            <lvc:CartesianChart x:Name="chart" Series="{Binding CurrentControl.Collection,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <!-- axes -->
                 <lvc:CartesianChart.AxisX>
                     <lvc:Axis Title="X"  Foreground="{StaticResource TextBrush}" Position="LeftBottom">

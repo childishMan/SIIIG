@@ -166,53 +166,6 @@ namespace siig.Views_ViewModels
             return f;
         }
 
-        private void Input_OnMouseEnter(object sender, MouseEventArgs e)
-        {
-            var Box = sender as TextBox;
-
-            if (Box.Text == "example: 1;2 2;2 5;3")
-            {
-                Box.Text = "";
-            }
-
-            Box.BorderThickness = new Thickness(1);
-            Box.Foreground = Brushes.AliceBlue;
-        }
-
-        private void Input_OnMouseLeave(object sender, MouseEventArgs e)
-        {
-            var Box = sender as InputBox;
-            var TemporaryString = Box.Text;
-            if (String.IsNullOrEmpty(TemporaryString))
-            {
-                Box.BorderThickness = new Thickness(0);
-                Box.Text = "example: 1;2 2;2 5;3";
-                Box.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#90a4ae"));
-            }
-            else
-            {
-                if (inputParser.isCorrect(TemporaryString))
-                {
-                    Box.BorderThickness = new Thickness(0);
-                    if (Box == InputFirstSignal)
-                    {
-                        FirstSignal = DictionaryWorker.Sort(inputParser.Parse(TemporaryString));
-                        Box.Text = DictionaryWorker.ToString(FirstSignal);
-                    }
-                    else
-                    {
-                        SecondSignal = DictionaryWorker.Sort(inputParser.Parse(TemporaryString));
-                        Box.Text = DictionaryWorker.ToString(SecondSignal);
-
-                    }
-                }
-                else
-                {
-                    Box.BorderThickness = new Thickness(1);
-                    Box.BorderBrush = Brushes.Red;
-                }
-            }
-        }
 
         private void RadioButton_OnChecked(object sender, RoutedEventArgs e)
         {
@@ -297,7 +250,7 @@ namespace siig.Views_ViewModels
                         SettingsBlock.Visibility = Visibility.Hidden;
                         SecondSignalBlock.Visibility = Visibility.Visible;
 
-                        SwapSize(true);
+                        SwapSize(false);
                         Grid.SetRow(OutputBlock, 3);
 
                         break;
@@ -327,7 +280,7 @@ namespace siig.Views_ViewModels
                         SettingsBlock.Visibility = Visibility.Hidden;
                         SecondSignalBlock.Visibility = Visibility.Visible;
 
-                        SwapSize(true);
+                        SwapSize(false);
                         Grid.SetRow(OutputBlock, 3);
 
                         break;
@@ -365,6 +318,16 @@ namespace siig.Views_ViewModels
 
         private void SwapSize(bool Straight)
         {
+            if (!Straight)
+            {
+                SettingsBlock.Visibility = Visibility.Hidden;
+                SecondSignalBlock.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                SettingsBlock.Visibility = Visibility.Visible;
+                SecondSignalBlock.Visibility = Visibility.Hidden;
+            }
         }
 
         private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -386,14 +349,27 @@ namespace siig.Views_ViewModels
             }
         }
 
-        private void OutputSignal_OnMouseEnter(object sender, MouseEventArgs e)
+        private void InputSecondSignal_OnLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
-            if (OuputString != "")
+            try
             {
-                ToolTip tp = new ToolTip();
-                tp.Placement = PlacementMode.Top;
-                tp.Content = OuputString;
-                OutputSignal.ToolTip = tp;
+                SecondSignal = MyConverter.ListToDictionary(inputParser.ParseToList((sender as InputBox).Text));
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private void InputFirstSignal_OnLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            try
+            {
+                FirstSignal = MyConverter.ListToDictionary(inputParser.ParseToList((sender as InputBox).Text));
+            }
+            catch (Exception ex)
+            {
+
             }
         }
     }

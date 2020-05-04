@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,6 +19,7 @@ using CustomControls;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
+using siig.Annotations;
 using siig.methods;
 using siig.models;
 using visual;
@@ -27,7 +30,7 @@ namespace siig.Views_ViewModels
     /// <summary>
     /// Interaction logic for ConvolutionControl.xaml
     /// </summary>
-    public partial class ConvolutionControl : UserControl,IMethod
+    public partial class ConvolutionControl : UserControl,IMethod,INotifyPropertyChanged
     {
         public ChartValues<ObservablePoint> FirstSignalChartValues { get; set; }
         public ChartValues<ObservablePoint> SecondSignalChartValues { get; set; }
@@ -37,17 +40,32 @@ namespace siig.Views_ViewModels
         private Dictionary<int, double> SecondSignal;
         private Dictionary<int, double> FinalSignal;
 
+        private bool isSeriesBinded = false;
+
         private string OuputString = "";
 
         public UserControl CurrentControl;
 
         public string NameOfView { get; set; } = "Convolution";
 
-        public SeriesCollection Collection { get; set; }
+        private SeriesCollection _collection;
+
+        public SeriesCollection Collection
+        {
+            get { return _collection;}
+            set
+            {
+                _collection = value; 
+                OnPropertyChanged();
+            } }
 
         public ConvolutionControl()
         {
             InitializeComponent();
+
+            FirstSignal = new Dictionary<int, double>();
+            SecondSignal = new Dictionary<int, double>();
+            FinalSignal = new Dictionary<int, double>();
 
             FirstSignalChartValues = new ChartValues<ObservablePoint>();
             SecondSignalChartValues = new ChartValues<ObservablePoint>();
@@ -55,39 +73,44 @@ namespace siig.Views_ViewModels
 
             CurrentControl = this;
 
-            BindSeries();
             DataContext = this;
         }
 
         private void BindSeries()
         {
-            Collection = new SeriesCollection()
+            if (!isSeriesBinded)
             {
-                new ColumnSeries()
+                Collection = new SeriesCollection()
                 {
-                    Title="FinalSignal Signal",
-                    Values = FinalSignalChartValues,
-                    Fill = Brushes.OrangeRed
-                },
-                new ScatterSeries()
-                {
-                    Title = "First Signal",
-                    Values = FirstSignalChartValues,
-                    Fill=Brushes.LawnGreen
-                },
+                    new ColumnSeries()
+                    {
+                        Title = "FinalSignal Signal",
+                        Values = FinalSignalChartValues,
+                        Fill = Brushes.OrangeRed
+                    },
+                    new ScatterSeries()
+                    {
+                        Title = "First Signal",
+                        Values = FirstSignalChartValues,
+                        Fill = Brushes.LawnGreen
+                    },
 
-                new ScatterSeries()
-                {
-                    Title="Second Signal",
-                    Values = SecondSignalChartValues,
-                    Fill=Brushes.Aqua
-                }
+                    new ScatterSeries()
+                    {
+                        Title = "Second Signal",
+                        Values = SecondSignalChartValues,
+                        Fill = Brushes.Aqua
+                    }
 
-            };
+                };
+                isSeriesBinded = true;
+            }
         }
 
         private void BindCharts()
         {
+            BindSeries();
+
             FirstSignalChartValues.Clear();
             SecondSignalChartValues.Clear();
             FinalSignalChartValues.Clear();
@@ -133,15 +156,37 @@ namespace siig.Views_ViewModels
             }
         }
 
-        private void OutputSignal_OnMouseEnter(object sender, MouseEventArgs e)
+
+        private void InputFirstSignal_OnLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
-            if (OuputString != "")
+            try
             {
-                ToolTip tp = new ToolTip();
-                tp.Placement = PlacementMode.Top;
-                tp.Content = OuputString;
-                OutputSignal.ToolTip = tp;
+                FirstSignal = MyConverter.ListToDictionary(inputParser.ParseToList((sender as InputBox).Text));
             }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private void InputSecondSignal_OnLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            try
+            {
+                SecondSignal = MyConverter.ListToDictionary(inputParser.ParseToList((sender as InputBox).Text));
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

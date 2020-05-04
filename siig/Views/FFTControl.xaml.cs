@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CustomControls;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
@@ -381,6 +382,18 @@ namespace siig.Views_ViewModels
                 }
 
                 Proceed();
+            }
+        }
+
+        private void SignalInput_OnLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            try
+            {
+                Signal = inputParser.ParseToList((sender as InputBox).Text);
+            }
+            catch (Exception ex)
+            {
+
             }
         }
     }

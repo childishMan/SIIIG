@@ -80,7 +80,8 @@
 
                 <xd:InputBox Name="InputFirstSignal"
                              Style="{StaticResource inputBox}"
-                             Placeholder="example: 1;2 2;2 5;3" />
+                             Placeholder="example: 1;2 2;2 5;3"
+                             LostKeyboardFocus="InputFirstSignal_OnLostKeyboardFocus"/>
 
             </StackPanel>
         </xd:MContainer>
@@ -95,7 +96,8 @@
 
                 <xd:InputBox Name="InputSecondSignal"
                              Style="{StaticResource inputBox}"
-                             Placeholder="example: 1;2 2;2 5;3" />
+                             Placeholder="example: 1;2 2;2 5;3" 
+                             LostKeyboardFocus="InputSecondSignal_OnLostKeyboardFocus"/>
             </StackPanel>
         </xd:MContainer>
 

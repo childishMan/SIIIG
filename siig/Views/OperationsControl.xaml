@@ -41,7 +41,8 @@
 
                 <xd:InputBox Name="InputFirstSignal"
                              Style="{StaticResource inputBox}"
-                             Placeholder="example: 1;2 2;2 5;3" />
+                             Placeholder="example: 1;2 2;2 5;3"
+                             LostKeyboardFocus="InputFirstSignal_OnLostKeyboardFocus"/>
 
             </StackPanel>
 
@@ -84,7 +85,8 @@
                        Content="Expand"
                        Style="{StaticResource MainLabel}" FontSize="13" />
 
-                <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+                <StackPanel Grid.Row="2" Grid.Column="1"
+                            Orientation="Horizontal" HorizontalAlignment="Center">
 
                     <RadioButton Name="ExpandRadioButton"
                                  VerticalContentAlignment="Center"
@@ -137,7 +139,9 @@
                 <Label Style="{StaticResource MainLabel}" Content="Input Second Signal" />
 
                 <xd:InputBox Name="InputSecondSignal"
-                             Placeholder="example: 1;2 2;2 5;3" />
+                             Style="{StaticResource inputBox}"
+                             Placeholder="example: 1;2 2;2 5;3" 
+                             LostKeyboardFocus="InputSecondSignal_OnLostKeyboardFocus"/>
 
             </StackPanel>
         </xd:MContainer>

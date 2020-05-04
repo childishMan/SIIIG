@@ -22,7 +22,8 @@
 
                 <xd:InputBox Name="SignalInput"
                              Style="{StaticResource inputBox}"
-                             Placeholder="example: 1;2 2;2 5;3" />
+                             Placeholder="example: 1;2 2;2 5;3" 
+                             LostKeyboardFocus="SignalInput_OnLostKeyboardFocus"/>
             </StackPanel>
         </xd:MContainer>
 

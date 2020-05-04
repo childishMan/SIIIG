@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
@@ -41,6 +42,23 @@ namespace visual
             {
                 return null;
             }
+        }
+
+        static public List<double> ParseToList(string input)
+        {
+            List<double> output = new List<double>();
+
+            double elem = 0;
+
+            foreach (var item in input.Split(' '))
+            {
+                if (Double.TryParse(item, out elem))
+                {
+                    output.Add(elem);
+                }
+            }
+
+            return output;
         }
         /// <summary>
         /// regex string check to be in correct format and cleaning some not valid data from it
