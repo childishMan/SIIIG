@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -7,9 +9,11 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
+using CustomControls;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
+using siig.Annotations;
 using siig.models;
 using siig.methods;
 using visual;
@@ -19,7 +23,7 @@ namespace siig.Views_ViewModels
     /// <summary>
     /// Interaction logic for CorelationControl.xaml
     /// </summary>
-    public partial class CorelationControl : UserControl, IMethod
+    public partial class CorelationControl : UserControl, IMethod,INotifyPropertyChanged
     {
         private bool IsCrossCorelation = true;
         private bool Normalize = false;
@@ -29,6 +33,18 @@ namespace siig.Views_ViewModels
         private List<double> FinalSignal = new List<double>();
 
         private string OutputString = "";
+
+        private string _output;
+
+        public string Output
+        {
+            get { return _output;}
+            set
+            {
+                _output = value;
+                OnPropertyChanged();
+            }
+        }
 
         public string NameOfView { get; set; } = "Corelation";
 
@@ -45,6 +61,8 @@ namespace siig.Views_ViewModels
             CorelationSignalChartValues = new ChartValues<ObservableValue>();
 
             BindSeries();
+
+            Output = "s\ns\ns\n gasf\n";
 
             DataContext = this;
         }
@@ -113,7 +131,7 @@ namespace siig.Views_ViewModels
 
         private void Input_OnMouseLeave(object sender, MouseEventArgs e)
         {
-            var Box = sender as TextBox;
+            var Box = sender as InputBox;
             var TempString = Box.Text;
             if (String.IsNullOrEmpty(TempString))
             {
@@ -203,5 +221,36 @@ namespace siig.Views_ViewModels
             }
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void InputFirstSignal_OnLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            try
+            {
+                FirstSignal = MyConverter.ListToDictionary(inputParser.ParseToList((sender as InputBox).Text));
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private void InputSecondSignal_OnLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            try
+            {
+                SecondSignal = MyConverter.ListToDictionary(inputParser.ParseToList((sender as InputBox).Text));
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
     }
 }

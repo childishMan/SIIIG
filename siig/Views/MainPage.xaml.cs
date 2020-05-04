@@ -1,26 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using LiveCharts;
 using LiveCharts.Defaults;
-using LiveCharts.Wpf;
-using LiveCharts.Wpf.Charts.Base;
+using siig.Annotations;
 using siig.methods;
 using siig.Views_ViewModels;
-using Xceed.Wpf.Toolkit.Core.Converters;
-using Color = System.Drawing.Color;
-using ColorConverter = System.Drawing.ColorConverter;
 
 namespace siig
 {
-
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
         private static List<UserControl> Controls = new List<UserControl>()
@@ -32,9 +24,17 @@ namespace siig
 
         };
 
-        private UserControl CurrentControl;
+        private UserControl _CurrentControl;
 
-        public static ChartValues<ObservablePoint> CorelationSignalChartValues = new ChartValues<ObservablePoint>();
+        public UserControl CurrentControl
+        {
+            get { return _CurrentControl; }
+            set
+            {
+                _CurrentControl = value;
+                OnPropertyChanged();
+            }
+        }
 
         public MainWindow()
         {
@@ -42,24 +42,17 @@ namespace siig
 
             CurrentControl = Controls.First();
 
-            SettingsBlock.Content = CurrentControl;
-
-
-            DataContext = CurrentControl;
+            DataContext = this;
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         private void Proceed_OnClick(object sender, RoutedEventArgs e)
         {
             var MethodControl = CurrentControl as IMethod;
 
-            if (MethodControl.IsAllChecked())
+            if ( MethodControl!=null && MethodControl.IsAllChecked())
             {
                 MethodControl.Proceed();
-                PropertyChanged?.Invoke(null, null);
             }
-
             else
             {
                 MessageBox.Show("Enter correct data to proceed!!!", "Input data Error",
@@ -67,34 +60,14 @@ namespace siig
             }
         }
 
-        private void UIElement_OnMouseEnter(object sender, MouseEventArgs e)
-        {
-            var box = sender as GroupBox;
-
-            box.Background =
-                new SolidColorBrush(
-                    (System.Windows.Media.Color) System.Windows.Media.ColorConverter.ConvertFromString("#7b1fa2"));
-        }
-
-        private void UIElement_OnMouseLeave(object sender, MouseEventArgs e)
-        {
-            var box = sender as GroupBox;
-
-            box.Background = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#8e24aa"));
-        }
-
         private void NextMethod(object sender, MouseButtonEventArgs e)
         {
             int IndexOfMethod = Controls.FindIndex(control => control == CurrentControl);
+
             if (IndexOfMethod != Controls.Count - 1)
             {
                 CurrentControl = Controls[IndexOfMethod + 1];
             }
-
-            DataContext = CurrentControl;
-            SettingsBlock.Content = CurrentControl;
-
-            PropertyChanged?.Invoke(null, null);
         }
 
         private void PreviousMethod(object sender, MouseButtonEventArgs e)
@@ -104,11 +77,6 @@ namespace siig
             {
                 CurrentControl = Controls[IndexOfMethod - 1];
             }
-
-            DataContext = CurrentControl;
-            SettingsBlock.Content = CurrentControl;
-
-            PropertyChanged?.Invoke(null, null);
         }
 
 
@@ -116,6 +84,15 @@ namespace siig
         {
             MessageBox.Show("Project by Marian Hupalo", "About", MessageBoxButton.OK, MessageBoxImage.Information);
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
     }
 
 

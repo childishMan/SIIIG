@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
+using CustomControls;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
@@ -165,53 +166,6 @@ namespace siig.Views_ViewModels
             return f;
         }
 
-        private void Input_OnMouseEnter(object sender, MouseEventArgs e)
-        {
-            var Box = sender as TextBox;
-
-            if (Box.Text == "example: 1;2 2;2 5;3")
-            {
-                Box.Text = "";
-            }
-
-            Box.BorderThickness = new Thickness(1);
-            Box.Foreground = Brushes.AliceBlue;
-        }
-
-        private void Input_OnMouseLeave(object sender, MouseEventArgs e)
-        {
-            var Box = sender as TextBox;
-            var TemporaryString = Box.Text;
-            if (String.IsNullOrEmpty(TemporaryString))
-            {
-                Box.BorderThickness = new Thickness(0);
-                Box.Text = "example: 1;2 2;2 5;3";
-                Box.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#90a4ae"));
-            }
-            else
-            {
-                if (inputParser.isCorrect(TemporaryString))
-                {
-                    Box.BorderThickness = new Thickness(0);
-                    if (Box == InputFirstSignal)
-                    {
-                        FirstSignal = DictionaryWorker.Sort(inputParser.Parse(TemporaryString));
-                        Box.Text = DictionaryWorker.ToString(FirstSignal);
-                    }
-                    else
-                    {
-                        SecondSignal = DictionaryWorker.Sort(inputParser.Parse(TemporaryString));
-                        Box.Text = DictionaryWorker.ToString(SecondSignal);
-
-                    }
-                }
-                else
-                {
-                    Box.BorderThickness = new Thickness(1);
-                    Box.BorderBrush = Brushes.Red;
-                }
-            }
-        }
 
         private void RadioButton_OnChecked(object sender, RoutedEventArgs e)
         {
@@ -276,7 +230,7 @@ namespace siig.Views_ViewModels
 
                         SettingsBlock.Visibility = Visibility.Visible;
                         SecondSignalBlock.Visibility = Visibility.Hidden;
-                        ExpandStackPanel.Visibility = Visibility.Hidden;
+                      //  ExpandStackPanel.Visibility = Visibility.Hidden;
 
                         FactorUpDown.Minimum = 1;
                         FactorUpDown.Value = 1;
@@ -284,7 +238,7 @@ namespace siig.Views_ViewModels
 
                         SwapSize(true);
 
-                        Grid.SetColumnSpan(FactorStackPanel, 2);
+                       // Grid.SetColumnSpan(FactorStackPanel, 2);
                         Grid.SetRow(OutputBlock, 3);
 
                         break;
@@ -296,7 +250,7 @@ namespace siig.Views_ViewModels
                         SettingsBlock.Visibility = Visibility.Hidden;
                         SecondSignalBlock.Visibility = Visibility.Visible;
 
-                        SwapSize(true);
+                        SwapSize(false);
                         Grid.SetRow(OutputBlock, 3);
 
                         break;
@@ -307,7 +261,7 @@ namespace siig.Views_ViewModels
 
                         SettingsBlock.Visibility = Visibility.Visible;
                         SecondSignalBlock.Visibility = Visibility.Hidden;
-                        ExpandStackPanel.Visibility = Visibility.Visible;
+                      //  ExpandStackPanel.Visibility = Visibility.Visible;
 
                         FactorUpDown.Minimum = 1;
                         FactorUpDown.Value = 1;
@@ -316,7 +270,7 @@ namespace siig.Views_ViewModels
                         SwapSize(true);
 
                         Grid.SetRow(OutputBlock, 3);
-                        Grid.SetColumnSpan(FactorStackPanel, 1);
+                       // Grid.SetColumnSpan(FactorStackPanel, 1);
                         break;
                     }
 
@@ -326,7 +280,7 @@ namespace siig.Views_ViewModels
                         SettingsBlock.Visibility = Visibility.Hidden;
                         SecondSignalBlock.Visibility = Visibility.Visible;
 
-                        SwapSize(true);
+                        SwapSize(false);
                         Grid.SetRow(OutputBlock, 3);
 
                         break;
@@ -346,7 +300,7 @@ namespace siig.Views_ViewModels
 
                         SecondSignalBlock.Visibility = Visibility.Hidden;
                         SettingsBlock.Visibility = Visibility.Visible;
-                        ExpandStackPanel.Visibility = Visibility.Hidden;
+                        //ExpandStackPanel.Visibility = Visibility.Hidden;
 
                         FactorUpDown.Minimum = -20;
                         FactorUpDown.Value = 1;
@@ -364,15 +318,15 @@ namespace siig.Views_ViewModels
 
         private void SwapSize(bool Straight)
         {
-            if (Straight)
+            if (!Straight)
             {
-                ThirdRow.Height = new GridLength(3, GridUnitType.Star);
-                FourthRow.Height = new GridLength(2.5, GridUnitType.Star);
+                SettingsBlock.Visibility = Visibility.Hidden;
+                SecondSignalBlock.Visibility = Visibility.Visible;
             }
             else
             {
-                ThirdRow.Height = new GridLength(2.5, GridUnitType.Star);
-                FourthRow.Height = new GridLength(3, GridUnitType.Star);
+                SettingsBlock.Visibility = Visibility.Visible;
+                SecondSignalBlock.Visibility = Visibility.Hidden;
             }
         }
 
@@ -395,14 +349,27 @@ namespace siig.Views_ViewModels
             }
         }
 
-        private void OutputSignal_OnMouseEnter(object sender, MouseEventArgs e)
+        private void InputSecondSignal_OnLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
-            if (OuputString != "")
+            try
             {
-                ToolTip tp = new ToolTip();
-                tp.Placement = PlacementMode.Top;
-                tp.Content = OuputString;
-                OutputSignal.ToolTip = tp;
+                SecondSignal = MyConverter.ListToDictionary(inputParser.ParseToList((sender as InputBox).Text));
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private void InputFirstSignal_OnLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            try
+            {
+                FirstSignal = MyConverter.ListToDictionary(inputParser.ParseToList((sender as InputBox).Text));
+            }
+            catch (Exception ex)
+            {
+
             }
         }
     }

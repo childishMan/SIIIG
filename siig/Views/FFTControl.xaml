@@ -1,0 +1,134 @@
+﻿<UserControl x:Class="siig.Views_ViewModels.FFTControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:xd="http:/herewego.cc"
+             d:DesignHeight="400" d:DesignWidth="300"
+             mc:Ignorable="d">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <xd:MContainer Grid.Row="0" Style="{StaticResource ContainerStyle}">
+            <StackPanel Style="{StaticResource StackPanelStyle}">
+
+                <Label Content="Signal" Style="{StaticResource MainLabel}" />
+
+                <xd:InputBox Name="SignalInput"
+                             Style="{StaticResource inputBox}"
+                             Placeholder="example: 1;2 2;2 5;3" 
+                             LostKeyboardFocus="SignalInput_OnLostKeyboardFocus"/>
+            </StackPanel>
+        </xd:MContainer>
+
+        <xd:MContainer Grid.Row="1" Style="{StaticResource ContainerStyle}">
+            <StackPanel Style="{StaticResource StackPanelStyle}">
+
+                <Label Content="Method" Style="{StaticResource MainLabel}" />
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                    <RadioButton Name="FastFourierButton" VerticalContentAlignment="Center" IsChecked="True"
+                                 Checked="Method_OnChecked">
+                        <Label Content="Fast Fourier" Style="{StaticResource RadioButtonLabelStyle}" />
+                    </RadioButton>
+
+                    <RadioButton Name="DiscreteFourierButton" VerticalContentAlignment="Center"
+                                 Checked="Method_OnChecked">
+                        <Label Content="Discrete Fourier" Style="{StaticResource RadioButtonLabelStyle}" />
+                    </RadioButton>
+                </StackPanel>
+
+            </StackPanel>
+
+        </xd:MContainer>
+
+        <xd:MContainer Grid.Row="2" Style="{StaticResource ContainerStyle}">
+            <Grid Margin="10,5">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0"
+                       Content="Settings"
+                       Style="{StaticResource MainLabel}" />
+
+                <StackPanel Grid.Row="1" Name="SettingsBlock"
+                            Orientation="Horizontal" HorizontalAlignment="Center">
+
+                    <RadioButton Name="ForwardFFT" VerticalContentAlignment="Center"
+                                 IsChecked="True"
+                                 Checked="FFTMethod_OnChecked">
+
+                        <Label Content="Forward" Style="{StaticResource RadioButtonLabelStyle}" />
+
+                    </RadioButton>
+
+                    <RadioButton Name="InverseFFT" VerticalContentAlignment="Center"
+                                 Checked="FFTMethod_OnChecked">
+
+                        <Label Content="Inverse" Style="{StaticResource RadioButtonLabelStyle}" />
+
+                    </RadioButton>
+
+                </StackPanel>
+
+                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+
+                    <RadioButton Name="ShowSignal" VerticalContentAlignment="Center"
+                                 IsChecked="True"
+                                 Checked="ChartType_OnChecked">
+
+                        <Label Content="Signal" Style="{StaticResource RadioButtonLabelStyle}" />
+
+                    </RadioButton>
+
+                    <RadioButton Name="ShowMagnitude" VerticalContentAlignment="Center"
+                                 Checked="ChartType_OnChecked">
+
+                        <Label Content="Magnitude" Style="{StaticResource RadioButtonLabelStyle}" />
+
+                    </RadioButton>
+
+                    <RadioButton Name="ShowPhase" VerticalContentAlignment="Center"
+                                 Checked="ChartType_OnChecked">
+
+                        <Label Content="Phase" Style="{StaticResource RadioButtonLabelStyle}" />
+
+                    </RadioButton>
+
+                </StackPanel>
+
+            </Grid>
+        </xd:MContainer>
+
+        <xd:MContainer Grid.Row="3" Style="{StaticResource ContainerStyle}">
+
+            <Grid Margin="10,5">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Content="Output" Style="{StaticResource MainLabel}" />
+
+                <xd:OutputBox Name="Output"
+                              Grid.Row="1"
+                              VerticalContentAlignment="Top"
+                              Style="{StaticResource OutputBoxStyle}"
+                              Text="{Binding OutputString}" />
+            </Grid>
+        </xd:MContainer>
+
+    </Grid>
+</UserControl>

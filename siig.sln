@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.29806.167
+VisualStudioVersion = 16.0.29926.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "siig", "siig\siig.csproj", "{6CA03BF4-CE59-4CA6-963F-2BA79801506B}"
 EndProject
@@ -20,6 +20,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {E9A2F238-2D9A-48E6-AC7E-81FEF2A8D0ED}
+		SolutionGuid = {E26C8E87-6D75-41E0-84FC-CA7F5A5337FF}
 	EndGlobalSection
 EndGlobal

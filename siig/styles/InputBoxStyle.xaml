@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:hw="http:/herewego.cc">
+
+    <Style x:Key="inputBox" TargetType="hw:InputBox">
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+
+        <Setter Property="Width" Value="Auto"/>
+        <Setter Property="Height" Value="Auto"/>
+
+        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+        <Setter Property="PlaceholderBrush" Value="{StaticResource PlaceholderBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource ItemsBorderBrush}"/>
+        <Setter Property="Background" Value="{StaticResource ItemsBackgroundBrush}"/>
+
+        <Setter Property="BorderThicc" Value="2"/>
+
+        <Setter Property="Padding" Value="5"/>
+
+        <Setter Property="FontSize" Value="10"/>
+
+    </Style>
+</ResourceDictionary>

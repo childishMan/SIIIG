@@ -1,0 +1,38 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:hw="http:/herewego.cc">
+
+    <Style x:Key="ButtonStyle" TargetType="hw:tButton">
+        <Setter Property="BorderThickness" Value="3,1,1,3"/>
+        <Setter Property="Background" Value="{StaticResource ContainerBackgroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource ContainerBorderBrush}"/>
+        <Setter Property="HoverBrush" Value="{StaticResource HoverColor}"/>
+        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Radius" Value="5"/>
+        <Setter Property="Margin" Value="10,5"/>
+        <Setter Property="FontSize" Value="12"/>
+
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="MouseEnter">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimation Storyboard.TargetProperty="(hw:tButton.BorderBrush).(SolidColorBrush.Color)"
+                                        To="Transparent" Duration="0:0:0.001" FillBehavior="HoldEnd"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+
+            <EventTrigger RoutedEvent="MouseLeave">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimation Storyboard.TargetProperty="(hw:tButton.BorderBrush).(SolidColorBrush.Color)"
+                                        To="{StaticResource ContainerBorderBrushAnimTo}" Duration="0:0:0.005" FillBehavior="HoldEnd"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>
